@@ -1,15 +1,16 @@
 package com.practise.surya_practise.LLD.design_patterns._3observer.amazon.observable;
 
-import com.practise.surya_practise.LLD.design_patterns._3observer.amazon.observer.Observer;
+import com.practise.surya_practise.LLD.design_patterns._3observer.amazon.observer.StockObserver;
 
 public interface Observable {
-    void registerObserver(Observer observer);
 
-    void removeObserver(Observer observer);
+    void registerObserver(StockObserver stockObserver);
+
+    void removeObserver(StockObserver stockObserver);
 
     void notifyObservers();
 
-    void setPrice(float price);
+    void setStockCount(int price);
 
-    float getPrice();
+    int getStockCount();
 }
