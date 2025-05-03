@@ -33,7 +33,7 @@ public class SuryaPractiseApplication
 //		observerPatternLikeHeadFirstDesignPatterBook();
 
 		List<String> phoneNoList= List.of(
-				"+971524556792"
+				"+971524399016"
 		);
 		for (int i = 0; i < phoneNoList.size(); i++) {
 			String mobile = phoneNoList.get(i);
