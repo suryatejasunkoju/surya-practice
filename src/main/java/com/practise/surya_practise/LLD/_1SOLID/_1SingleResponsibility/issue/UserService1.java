@@ -2,7 +2,6 @@ package com.practise.surya_practise.LLD._1SOLID._1SingleResponsibility.issue;
 
 import com.practise.surya_practise.LLD._1SOLID._1SingleResponsibility.User;
 import com.practise.surya_practise.LLD._1SOLID._1SingleResponsibility.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
