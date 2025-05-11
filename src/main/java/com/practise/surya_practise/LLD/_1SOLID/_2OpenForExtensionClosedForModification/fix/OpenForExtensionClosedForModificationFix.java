@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 public class OpenForExtensionClosedForModificationFix
 {
     @Autowired
-    private  OrderService orderService;
+    private static OrderService orderService;
 
-    public void run()
+    public static void run()
     {
         orderService.placeOrder("paypal", 1000.56);
     }

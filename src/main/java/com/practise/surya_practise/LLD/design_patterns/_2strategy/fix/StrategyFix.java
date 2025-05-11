@@ -6,6 +6,7 @@ public class StrategyFix
 {
     public static void run()
     {
+            System.out.println("StrategyFix run:");
             Vehicle sportyVehicle = new SportyVehicle();
             sportyVehicle.drive();
             Vehicle passengerVehicle = new PassengerVehicle();

@@ -6,6 +6,7 @@ public class StrategyIssue
 {
     public static void run()
     {
+        System.out.println("StrategyIssue run:");
         Vehicle sportyVehicle = new SportyVehicle();
         sportyVehicle.drive();
         Vehicle passengerVehicle = new PassengerVehicle();
