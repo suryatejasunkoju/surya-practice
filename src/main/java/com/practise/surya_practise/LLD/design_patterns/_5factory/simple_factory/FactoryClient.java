@@ -1,6 +1,9 @@
 package com.practise.surya_practise.LLD.design_patterns._5factory.simple_factory;
 
-public class SimpleFactory
+import com.practise.surya_practise.LLD.design_patterns._5factory.simple_factory.abstract_products.Shape;
+import com.practise.surya_practise.LLD.design_patterns._5factory.simple_factory.factory.ShapeFactory;
+
+public class FactoryClient
 {
     public static void run(){
 
