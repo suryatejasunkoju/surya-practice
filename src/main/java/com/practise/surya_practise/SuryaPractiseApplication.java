@@ -1,9 +1,7 @@
 package com.practise.surya_practise;
 
 
-import com.practise.surya_practise.LLD.design_patterns._5factory.abstract_factory.AbstractFactory;
-import com.practise.surya_practise.LLD.design_patterns._5factory.simple_factory.SimpleFactory;
-import com.practise.surya_practise.LLD.design_patterns.adapter.AdapterClient;
+import com.practise.surya_practise.LLD.design_patterns.null_object.VehicleClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -40,10 +38,13 @@ public class SuryaPractiseApplication
 //		PizzaShop.run();
 
 //		Factory pattern
-//		SimpleFactory.run();
+//		FactoryClient.run();
 //		AbstractFactory.run();
 
 //		Adapter pattern:
 //		AdapterClient.run();
+
+//		Null Object pattern:
+		VehicleClient.run();
 	}
 }
