@@ -1,4 +1,4 @@
-package com.practise.surya_practise.LLD.design_patterns._5factory;
+package com.practise.surya_practise.LLD.design_patterns._5factory.simple_factory;
 
 public class ShapeFactory
 {
