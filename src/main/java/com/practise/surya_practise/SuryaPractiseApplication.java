@@ -1,6 +1,7 @@
 package com.practise.surya_practise;
 
 
+import com.practise.surya_practise.LLD.design_patterns.adapter.AdapterClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -38,5 +39,8 @@ public class SuryaPractiseApplication
 
 //		Factory pattern
 //		Factory.run();
+
+//		Adapter pattern:
+		AdapterClient.run();
 	}
 }
