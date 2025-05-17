@@ -53,4 +53,33 @@ public class DesignPatterns
     //    - Strategy Pattern
     //    - Template Method Pattern
     //    - Visitor Pattern
+
+
+
+    //### ✅ **Important Design Patterns:
+    //1. Strategy Pattern
+    //2. Observer Pattern
+    //3. Decorator Pattern
+    //4. Factory Pattern
+    //5. Abstract Factory Pattern
+    //6. Chain of Responsibility Pattern
+    //7. Proxy Pattern
+    //8. Null Object Pattern
+    //9. State Pattern
+    //10. Composite Pattern
+    //11. Adapter Pattern
+    //12. Singleton Pattern
+    //13. Builder Pattern
+    //14. Prototype Pattern
+    //15. Bridge Pattern
+    //16.Façade Pattern-Splitwise simplification algo
+
+    //### 📄 **Other Design Patterns
+    //2. Flyweight Pattern
+    //3. Command Pattern
+    //4. Interpreter Pattern
+    //5. Iterator Pattern
+    //6. Mediator Pattern
+    //7. Memento Pattern
+
 }
