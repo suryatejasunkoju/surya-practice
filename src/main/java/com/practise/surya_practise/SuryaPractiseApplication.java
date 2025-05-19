@@ -1,7 +1,9 @@
 package com.practise.surya_practise;
 
 
+import com.practise.surya_practise.LLD.design_patterns.chain_of_responsibility.ChainOfResponsibilityClient;
 import com.practise.surya_practise.LLD.design_patterns.null_object.VehicleClient;
+import com.practise.surya_practise.LLD.design_patterns.proxy.ProxyClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -45,6 +47,11 @@ public class SuryaPractiseApplication
 //		AdapterClient.run();
 
 //		Null Object pattern:
-		VehicleClient.run();
+//		VehicleClient.run();
+
+//		ChainOfResponsibility pattern:
+//		ChainOfResponsibilityClient.run();
+//		Proxy pattern:
+		ProxyClient.run();
 	}
 }
