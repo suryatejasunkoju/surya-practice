@@ -1,5 +1,6 @@
 package com.practise.surya_practise.LLD.design_patterns;
 
+
 public class DesignPatterns
 {
     // Design Patterns are standard solutions to common software design problems.
