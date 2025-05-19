@@ -1,6 +1,7 @@
 package com.practise.surya_practise;
 
 
+import com.practise.surya_practise.LLD.design_patterns.builder.BuilderClient;
 import com.practise.surya_practise.LLD.design_patterns.chain_of_responsibility.ChainOfResponsibilityClient;
 import com.practise.surya_practise.LLD.design_patterns.null_object.VehicleClient;
 import com.practise.surya_practise.LLD.design_patterns.proxy.ProxyClient;
@@ -52,6 +53,10 @@ public class SuryaPractiseApplication
 //		ChainOfResponsibility pattern:
 //		ChainOfResponsibilityClient.run();
 //		Proxy pattern:
-		ProxyClient.run();
+//		ProxyClient.run();
+
+//		Builder pattern:
+		BuilderClient.run();
+
 	}
 }
