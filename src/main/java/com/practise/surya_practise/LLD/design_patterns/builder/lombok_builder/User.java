@@ -1,4 +1,4 @@
-package com.practise.surya_practise.LLD.design_patterns.builder;
+package com.practise.surya_practise.LLD.design_patterns.builder.lombok_builder;
 
 import lombok.ToString;
 

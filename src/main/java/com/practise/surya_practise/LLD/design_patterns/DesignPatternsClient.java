@@ -1,7 +1,22 @@
 package com.practise.surya_practise.LLD.design_patterns;
 
 
-public class DesignPatterns
+import com.practise.surya_practise.LLD.design_patterns._2strategy.fix.StrategyFix;
+import com.practise.surya_practise.LLD.design_patterns._2strategy.issue.StrategyIssue;
+import com.practise.surya_practise.LLD.design_patterns._3observer.amazon.Amazon;
+import com.practise.surya_practise.LLD.design_patterns._3observer.weather_station.UnlikeHeadFirstDesignPatterns.ObserverUnlikeHeadFirstDesignPatterns;
+import com.practise.surya_practise.LLD.design_patterns._4decorator.coffe_shop1.CoffeeShop1;
+import com.practise.surya_practise.LLD.design_patterns._4decorator.coffe_shop2.CoffeeShop2;
+import com.practise.surya_practise.LLD.design_patterns._4decorator.pizza_shop.PizzaShop;
+import com.practise.surya_practise.LLD.design_patterns._5factory.abstract_factory.AbstractFactory;
+import com.practise.surya_practise.LLD.design_patterns._5factory.simple_factory.FactoryClient;
+import com.practise.surya_practise.LLD.design_patterns.adapter.AdapterClient;
+import com.practise.surya_practise.LLD.design_patterns.builder.BuilderClient;
+import com.practise.surya_practise.LLD.design_patterns.chain_of_responsibility.ChainOfResponsibilityClient;
+import com.practise.surya_practise.LLD.design_patterns.null_object.VehicleClient;
+import com.practise.surya_practise.LLD.design_patterns.proxy.ProxyClient;
+
+public class DesignPatternsClient
 {
     // Design Patterns are standard solutions to common software design problems.
     // They provide a way to structure code, making it more reusable, maintainable, and scalable.
@@ -83,4 +98,38 @@ public class DesignPatterns
     //6. Mediator Pattern
     //7. Memento Pattern
 
+	public static void run() {
+		//		Design Patterns:
+//		Strategy Design pattern:
+		StrategyIssue.run();
+		StrategyFix.run();
+
+//		Observer Design Pattern:
+		ObserverUnlikeHeadFirstDesignPatterns.run();
+		Amazon.run();
+
+//		Decorator pattern
+		CoffeeShop1.run();
+		CoffeeShop2.run();
+		PizzaShop.run();
+
+//		Factory pattern
+		FactoryClient.run();
+		AbstractFactory.run();
+
+//		Adapter pattern:
+		AdapterClient.run();
+
+//		Null Object pattern:
+		VehicleClient.run();
+
+//		ChainOfResponsibility pattern:
+		ChainOfResponsibilityClient.run();
+//		Proxy pattern:
+		ProxyClient.run();
+
+//		Builder pattern:
+		BuilderClient.run();
+
+	}
 }
