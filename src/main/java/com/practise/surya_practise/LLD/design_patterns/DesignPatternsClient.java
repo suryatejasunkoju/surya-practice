@@ -79,7 +79,7 @@ public class DesignPatternsClient
     //4. Factory Pattern
     //5. Abstract Factory Pattern
     //6. Chain of Responsibility Pattern
-    //7. Proxy Pattern
+    //7. Proxy Pattern-not done
     //8. Null Object Pattern
     //9. State Pattern
     //10. Composite Pattern
@@ -88,7 +88,7 @@ public class DesignPatternsClient
     //13. Builder Pattern
     //14. Prototype Pattern
     //15. Bridge Pattern
-    //16.Façade Pattern-Splitwise simplification algo
+    //16. Façade Pattern-Splitwise simplification algo
 
     //### 📄 **Other Design Patterns
     //2. Flyweight Pattern
