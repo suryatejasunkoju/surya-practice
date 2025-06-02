@@ -1,7 +1,7 @@
 package com.practise.surya_practise;
 
 
-import com.practise.surya_practise.DSA.DsaClient;
+import com.practise.surya_practise.DSA.StriversSdeSheet.DsaClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -1,5 +1,8 @@
 package com.practise.surya_practise.LLD.design_patterns.state;
 
+import com.practise.surya_practise.LLD.design_patterns.state.product.VendingMachine;
+import com.practise.surya_practise.LLD.design_patterns.state.states.State;
+
 public class StateClient
 {
     public static void run()
@@ -34,5 +37,64 @@ public class StateClient
         //Each state class  will implement this interface and provide its own implementation of the methods that only it(current state) can perform. For all other methods either default implementation will be provided or exception will be thrown.
         //Product will have state, ie., private State state; inside Product. In each state class, we will have a reference to the product so that we can perform action on that product.
 
+
+
+
+
+        VendingMachine vendingMachine = new VendingMachine();
+        try {
+            System.out.println("Filling up the inventory");
+//            vendingMachine.fillUpInventory();
+            displayInventory(vendingMachine);
+
+            System.out.println("\nClicking on Insert Coin Button");
+            State vendingState = vendingMachine.getVendingMachineState();
+            vendingState.clickOnInsertCoinButton(vendingMachine);
+            State state = vendingMachine.getVendingMachineState();
+            state.insertCoin(vendingMachine, Coin.NICKEL);
+            state.insertCoin(vendingMachine, Coin.DIME);
+            state.insertCoin(vendingMachine, Coin.QUARTER);
+            // vendingState.insertCoin(vendingMachine, Coin.PENNY);
+
+            System.out.println("\nClicking on Product Selection Button");
+            vendingState = vendingMachine.getVendingMachineState();
+            vendingState.clickOnProductSelectionButton(vendingMachine);
+            vendingState.chooseProduct(vendingMachine, 102);
+
+            displayInventory(vendingMachine);
+        }
+        catch (Exception e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+            displayInventory(vendingMachine);
+        }
+    }
+
+
+    private static void fillUpInventory(VendingMachine vendingMachine) {
+        ItemShelf[] slots = vendingMachine.getInventory().getInventory();
+        for (int i = 0; i < slots.length; i++) {
+            Item newItem;
+            if (i >= 0 && i < 3) {
+                newItem = new Item(ItemType.COKE, 12);
+            } else if (i >= 3 && i < 6) {
+                newItem = new Item(ItemType.PEPSI, 15);
+            } else if (i >= 6 && i < 9) {
+                newItem = new Item(ItemType.JUICE, 13);
+            } else {
+                newItem = new Item(ItemType.SODA, 16);
+            }
+            slots[i].setItem(newItem);
+            slots[i].setSoldOut(false);
+        }
+    }
+
+    private static void displayInventory(VendingMachine vendingMachine) {
+        ItemShelf[] slots = vendingMachine.getInventory().getInventory();
+        for (int i = 0; i < slots.length; i++) {
+            System.out.println("CodeNumber: " + slots[i].getCode() +
+                    ", Item: " + slots[i].getItem().getType().name() +
+                    ", Price: " + slots[i].getItem().getPrice() +
+                    ", isSoldOut: " + slots[i].isSoldOut());
+        }
     }
 }
