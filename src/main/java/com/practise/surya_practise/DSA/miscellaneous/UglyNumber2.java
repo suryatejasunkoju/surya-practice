@@ -1,5 +1,6 @@
 package com.practise.surya_practise.DSA.miscellaneous;
 
+import com.practise.surya_practise.utils.Pair;
 import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolution;
 
 import java.util.TreeSet;
@@ -9,24 +10,21 @@ public class UglyNumber2 implements DsaSolution
         //    https://leetcode.com/problems/ugly-number-ii/description/
 
     @Override
-    public void bruteForce() {
-
-    }
-
-    @Override
-    public void goodApproach()
-    {
+    public Pair<String> bruteForce() {
         int n=10;
         int count=1, nthUglyNumber=0;
         if(n==1){
             nthUglyNumber=1;
         }
-        else {
+        else
+        {
 
             TreeSet<Integer> sortedSet = new TreeSet<>();
             sortedSet.add(1);
-
-            while(count<n){
+            //for n times, we are adding 3 elements[3*[O(log(n))]] & removing 1 element[O(log(n))]
+            //=O(n)*4*O(log(n))
+            while(count<n)
+            {
                 Integer first = sortedSet.first();
                 sortedSet.add(first*2);
                 sortedSet.add(first*3);
@@ -38,15 +36,22 @@ public class UglyNumber2 implements DsaSolution
             System.out.println("nth="+sortedSet.first());
         }
         System.out.println(n + "th ugly number is: " + nthUglyNumber);
+        return Pair.of("O(nlog(n))", "O(n)");
     }
 
     @Override
-    public void betterApproach() {
-
+    public Pair<String> goodApproach()
+    {
+        return Pair.of("", "");
     }
 
     @Override
-    public void bestApproach() {
+    public Pair<String> betterApproach() {
+        return Pair.of("", "");
+    }
 
+    @Override
+    public Pair<String> bestApproach() {
+        return Pair.of("", "");
     }
 }
