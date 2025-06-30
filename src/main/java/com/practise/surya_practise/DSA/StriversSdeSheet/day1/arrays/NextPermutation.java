@@ -2,30 +2,36 @@ package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays;
 
 import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolution;
 
-import static com.practise.surya_practise.DSA.DsaUtils.*;
+import static com.practise.surya_practise.utils.DsaUtils.*;
+import com.practise.surya_practise.utils.Pair;
 
 public class NextPermutation implements DsaSolution
 {
     @Override
-    public void bruteForce() {
+    public Pair<String> bruteForce() {
         Integer[] nums = new Integer[]
                 {1,2,3,4,5,6}
                 ;
         printArr(nums);
+        //find all permutations of the array, find where the current permutation is, and return the next one
+        return Pair.of("", "");
     }
 
     @Override
-    public void goodApproach() {
+    public Pair<String> goodApproach() {
 
+        return Pair.of("", "");
     }
 
     @Override
-    public void betterApproach() {
+    public Pair<String> betterApproach() {
 
+        return Pair.of("", "");
     }
 
     @Override
-    public void bestApproach() {
+    public Pair<String> bestApproach() {
 
+        return Pair.of("", "");
     }
 }
