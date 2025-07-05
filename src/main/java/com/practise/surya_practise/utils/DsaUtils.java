@@ -1,5 +1,7 @@
 package com.practise.surya_practise.utils;
 
+import java.util.List;
+
 public class DsaUtils
 {
     public static <V> void printArrElemsInNewLine(V[] arr)
@@ -75,5 +77,36 @@ public class DsaUtils
         {
             matrix[rowNo][i]=value;
         }
+    }
+
+    public static void makeAllAsValueInRowWithinColRange(Integer[][] matrix, int rowNo, int value, int colStart, int colEnd)
+    {
+        for (int i = colStart; i<colEnd; i++)
+        {
+            matrix[rowNo][i]=value;
+        }
+    }
+
+    public static void makeAllAsValueInColWithinRowRange(Integer[][] matrix, int colNo, int value, int rowStart, int rowEnd)
+    {
+        for (int i = rowStart; i<rowEnd; i++)
+        {
+            matrix[i][colNo]=value;
+        }
+    }
+
+    public static void printMatrix(List<List<Integer>> matrix)
+    {
+        System.out.println("[");
+        for (int i = 0; i < matrix.size(); i++)
+        {
+            System.out.print("[");
+            for (int j = 0; j < matrix.get(0).size(); j++)
+            {
+                System.out.print(matrix.get(i).get(j)+" ,");
+            }
+            System.out.println("],");
+        }
+        System.out.println("]");
     }
 }
