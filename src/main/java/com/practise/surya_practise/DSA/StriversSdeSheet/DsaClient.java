@@ -13,6 +13,6 @@ public class DsaClient
 //        new UglyNumber2().goodApproach();
 //        new NextPermutation().bruteForce();
 //        new MaximumSubArraySum().goodApproach();
-        new SetMatrixZeroes().goodApproach();
+        new SetMatrixZeroes().betterApproach();
     }
 }

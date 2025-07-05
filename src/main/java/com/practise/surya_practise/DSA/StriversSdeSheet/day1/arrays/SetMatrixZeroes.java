@@ -40,7 +40,7 @@ public class SetMatrixZeroes implements DsaSolution {
 
     @Override
     public Pair<String> goodApproach() {
-        //We don't need duplicate matrix to store 0 values instead we mark within the matrix.
+        //We don't need to duplicate matrix to store 0 values instead we mark within the matrix.
         //Approach:
         //iterate through all cells of matrix.
         //for each cell, if it contains 0 then mark that row & column as -1[no which cant be present in any cell of matrix] except if that row or column contains zero.
@@ -92,7 +92,11 @@ public class SetMatrixZeroes implements DsaSolution {
     public Pair<String> betterApproach() {
         //instead of duplicate matrix, we can have 2 arrays.
         // 1st representing zero occurrences in all rows. 2nd representing zero occurrences in all cols.
-        Integer[][] matrix=new Integer[][]{{1,1,1},{1,0,1},{1,1,1}};//{{0,1,2,0},{3,4,5,2},{1,3,1,5}};
+        Integer[][] matrix=new Integer[][]
+                //                {{1,1,1},{1,0,1},{1,1,1}};
+                {{0,1}};
+//        {{0,1,2,0},{3,4,5,2},{1,3,1,5}};
+//                {{1,2,3,4,5},{6,7,0,9,10},{0,0,11,13,14}};
         int rowCount = matrix.length;
         int colCount = matrix[0].length;
         Integer[] rowArr = new Integer[colCount];
@@ -136,12 +140,78 @@ public class SetMatrixZeroes implements DsaSolution {
     }
 
     @Override
-    public Pair<String> bestApproach() {
+    public Pair<String> bestApproach()
+    {
         //Approach: instead of row Arr & col Arr, we make use of
         // 1st row of matrix as row Arr &  1st col of matrix as col Arr
         // But matrix[0][0] represents 2 values, 1 of rowArr[0] & another of colArr[0].
-        //To resolve this conflict, we use a temp variable and matrix[0][0] represents rowArr[0]
-        
-        return null;
+        //To resolve this conflict, we use a rowArrFirstElement variable and matrix[0][0] represents rowArr[0]/colArr[0] value.
+        Integer[][] matrix=new Integer[][]
+//                {{1,1,1},{1,0,1},{1,1,1}};
+                {{0,1}};
+//        {{0,1,2,0},{3,4,5,2},{1,3,1,5}};
+//                {{1,2,3,4,5},{6,7,0,9,10},{0,0,11,13,14}};
+        //here having colArr[0] as rowArrFirstElement variable
+        int rowArrFirstElement=-1;
+        int rowLength=matrix[0].length;
+        int colLength=matrix.length;
+        DsaUtils.printMatrix(matrix);
+        System.out.println("rowArrFirstElement="+rowArrFirstElement+",rowLength="+rowLength+",colLength="+colLength);
+        System.out.println("marking zeroes upward vertically & left side horizontally at same time");
+
+        for (int i = 0; i <colLength; i++)//iterating through each row
+        {
+            for (int j = 0; j <rowLength; j++)//iterating through each cell in that row
+            {
+                if(matrix[i][j]==0)
+                {
+                    matrix[i][0]=0;
+                    if(j==0)
+                    {
+                        rowArrFirstElement=0;
+                    }
+                    else{
+                        matrix[0][j]=0;
+                    }
+                }
+            }
+        }
+        DsaUtils.printMatrix(matrix);
+        System.out.println("rowArrFirstElement="+rowArrFirstElement);
+        System.out.println("making rows as zeros based on first column");
+        for (int rowNo = 1; rowNo < colLength; rowNo++)//iterating through each row
+        {
+//            if(rowNo==0 && rowArrFirstElement==0)
+//            {
+//                DsaUtils.makeAllAsValueInRowWithinColRange(matrix, rowNo,0,1,rowLength);
+//            }
+//            else
+            if(matrix[rowNo][0]==0)
+            {
+                DsaUtils.makeAllAsValueInRowWithinColRange(matrix, rowNo,0,1,rowLength);
+            }
+        }
+        System.out.println("making cols as zeros based on first row");
+        for (int colNo = 1; colNo < rowLength; colNo++)
+        {
+            if(matrix[0][colNo]==0)
+            {
+                DsaUtils.makeAllAsValueInColWithinRowRange(matrix, colNo,0,1, colLength);
+            }
+        }
+        DsaUtils.printMatrix(matrix);
+        System.out.println("marking first row as zeroes based on matrix[0][0]");
+        if(matrix[0][0]==0)
+        {
+            DsaUtils.makeAllAsValueInRowWithinColRange(matrix, 0,0,0, rowLength);
+        }
+        DsaUtils.printMatrix(matrix);
+        System.out.println("marking first col as zeroes based on rowArrFirstElement");
+        if(rowArrFirstElement==0){
+            DsaUtils.makeAllAsValueInColWithinRowRange(matrix, 0,0,0, colLength);
+        }
+        DsaUtils.printMatrix(matrix);
+//        time=2*O(mn)
+        return Pair.of("O(mn)", "O(1)");
     }
 }
