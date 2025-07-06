@@ -1,71 +1,40 @@
 package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays;
 
 import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolution;
-import com.practise.surya_practise.utils.DsaUtils;
+import com.practise.surya_practise.utils.DsaArrayUtils;
 import com.practise.surya_practise.utils.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PascalsTriangleVariation3 implements DsaSolution {
+//        Variation 3: Given the number of rows n. Print the first n rows of Pascal’s triangle.
     @Override
     public Pair<String> bruteForce()
     {
-//        Variation 3: Given the number of rows n. Print the first n rows of Pascal’s triangle.
-        int numRows=1;
-        List<Integer> previousArr = new ArrayList<>();
-        previousArr.add(1);
-        List<List<Integer>> result = new ArrayList<>();
-        result.add(previousArr);
-        if(numRows==1)
-        {
-            DsaUtils.printMatrix(result);
-        }
-        // System.out.println("previousArr="+previousArr);
-        int currRowSize=2;
-        while(currRowSize<=numRows)
-        {
-            int prevSize = previousArr.size();
-            int currSize = prevSize+1;
-            List<Integer> currRow = new ArrayList<>(currSize);
-            System.out.println("currRowSize="+currRowSize+",previousArr="+previousArr);
-            for(int i=0; i<currSize; i++)
-            {
-                if(i==0)
-                {
-                    currRow.add(previousArr.get(0));
-                }
-                else if(i==prevSize){
-                    currRow.add(previousArr.get(i-1));
-                }
-                else
-                {
-                    int currElem=previousArr.get(i)+previousArr.get(i-1);
-                    currRow.add(currElem);
-                }
-            }
-            System.out.println("currRow="+currRow);
-            result.add(currRow);
-            previousArr=currRow;
-            currRowSize++;
-        }
-        DsaUtils.printMatrix(result);
-
-        return Pair.of("O(n!)","O(n!)");
+        //approach: bruteForceApproach of Variation1
+        return Pair.of("O(r!)","O(1)");
     }
 
     @Override
     public Pair<String> goodApproach() {
-        return null;
+        //approach: goodForceApproach of Variation1 for every P(r,c) in every row & col
+        //In each row, for each col->P(r,c) takes 2*r time, ie., (2r)^r time within a row r. ~=r^r time
+        //time=O(1)[firstRow]+O(2*2)[2ndRow]+O(3*3*3)[3rdRow]+O(4*4*4*4)[4thRow]+...O(r^r)
+        // =O(1+2^2+3^3+4^4...+r^r) This is very much greater than r!(above approach)[because r!<r^r, & O(1+2^2+3^3+4^4...+r^r) contains r^r]
+        return Pair.of("O(1+2^2+3^3+4^4...+r^r)","O(1)");
     }
 
     @Override
     public Pair<String> betterApproach() {
-        return null;
+        //same as above, but r^r time within a row instead of (2r)^r time like in above method
+        return Pair.of("O(1+2^2+3^3+4^4...+r^r)","O(1)");
     }
 
     @Override
     public Pair<String> bestApproach() {
+        //use bestApproach of Variation1
+        //time=O(r!)
         return null;
     }
 }

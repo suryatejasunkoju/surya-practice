@@ -2,7 +2,7 @@ package com.practise.surya_practise.utils;
 
 import java.util.List;
 
-public class DsaUtils
+public class DsaArrayUtils
 {
     public static <V> void printArrElemsInNewLine(V[] arr)
     {
