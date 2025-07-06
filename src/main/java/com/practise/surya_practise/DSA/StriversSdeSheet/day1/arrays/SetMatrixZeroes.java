@@ -1,7 +1,7 @@
 package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays;
 
 import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolution;
-import com.practise.surya_practise.utils.DsaUtils;
+import com.practise.surya_practise.utils.DsaArrayUtils;
 import com.practise.surya_practise.utils.Pair;
 
 public class SetMatrixZeroes implements DsaSolution {
@@ -22,18 +22,18 @@ public class SetMatrixZeroes implements DsaSolution {
                 duplicate[i][j]=matrix[i][j];
             }
         }
-        DsaUtils.printMatrix(duplicate);
+        DsaArrayUtils.printMatrix(duplicate);
 
         for (int i = 0; i <rowCount; i++) {
             for (int j = 0; j <colCount; j++) {
                 Integer currElem = duplicate[i][j];
                 if (currElem==0)
                 {
-                    DsaUtils.makeAllZeroesInRowAndCol(i,j, matrix);
+                    DsaArrayUtils.makeAllZeroesInRowAndCol(i,j, matrix);
                 }
             }
         }
-        DsaUtils.printMatrix(matrix);
+        DsaArrayUtils.printMatrix(matrix);
         //Time=O(m*n)+O((m*n)*(m+n))=O(mn(m+n))
         return Pair.of("O(mn(m+n))", "O(m*n)");
     }
@@ -49,7 +49,7 @@ public class SetMatrixZeroes implements DsaSolution {
         Integer[][] matrix=new Integer[][]{{0,1,2,0},{3,4,5,2},{1,3,1,5}};
         int rowCount = matrix.length;
         int colCount = matrix[0].length;
-        DsaUtils.printMatrix(matrix);
+        DsaArrayUtils.printMatrix(matrix);
         for (int rowNo = 0; rowNo <rowCount; rowNo++)
         {
             for (int colNo = 0; colNo <colCount; colNo++)
@@ -73,7 +73,7 @@ public class SetMatrixZeroes implements DsaSolution {
                 }
             }
         }
-        DsaUtils.printMatrix(matrix);
+        DsaArrayUtils.printMatrix(matrix);
         for (int rowNo = 0; rowNo <rowCount; rowNo++)
         {
             for (int colNo = 0; colNo <colCount; colNo++)
@@ -84,7 +84,7 @@ public class SetMatrixZeroes implements DsaSolution {
                 }
             }
         }
-        DsaUtils.printMatrix(matrix);
+        DsaArrayUtils.printMatrix(matrix);
         return Pair.of("O(mn*(m+n))", "O(1)");
     }
 
@@ -101,7 +101,7 @@ public class SetMatrixZeroes implements DsaSolution {
         int colCount = matrix[0].length;
         Integer[] rowArr = new Integer[colCount];
         Integer[] colArr = new Integer[rowCount];
-        DsaUtils.printMatrix(matrix);
+        DsaArrayUtils.printMatrix(matrix);
 //        DsaUtils.printArr(rowArr);
 //        DsaUtils.printArr(colArr);
         for (int i = 0; i <rowCount; i++) {
@@ -124,18 +124,18 @@ public class SetMatrixZeroes implements DsaSolution {
                 }
             }
         }
-        DsaUtils.printArr(rowArr);
-        DsaUtils.printArr(colArr);
+        DsaArrayUtils.printArr(rowArr);
+        DsaArrayUtils.printArr(colArr);
         for (int i = 0; i < rowArr.length; i++)
         {
             if(rowArr[i]==0)
-                DsaUtils.makeAllAsValueInCol(matrix, i, 0);
+                DsaArrayUtils.makeAllAsValueInCol(matrix, i, 0);
         }
         for (int i = 0; i < colArr.length; i++) {
             if(colArr[i]==0)
-                DsaUtils.makeAllAsValueInRow(matrix, i, 0);
+                DsaArrayUtils.makeAllAsValueInRow(matrix, i, 0);
         }
-        DsaUtils.printMatrix(matrix);
+        DsaArrayUtils.printMatrix(matrix);
         return Pair.of("O(mn)", "O(m+n)");
     }
 
@@ -155,7 +155,7 @@ public class SetMatrixZeroes implements DsaSolution {
         int rowArrFirstElement=-1;
         int rowLength=matrix[0].length;
         int colLength=matrix.length;
-        DsaUtils.printMatrix(matrix);
+        DsaArrayUtils.printMatrix(matrix);
         System.out.println("rowArrFirstElement="+rowArrFirstElement+",rowLength="+rowLength+",colLength="+colLength);
         System.out.println("marking zeroes upward vertically & left side horizontally at same time");
 
@@ -176,7 +176,7 @@ public class SetMatrixZeroes implements DsaSolution {
                 }
             }
         }
-        DsaUtils.printMatrix(matrix);
+        DsaArrayUtils.printMatrix(matrix);
         System.out.println("rowArrFirstElement="+rowArrFirstElement);
         System.out.println("making rows as zeros based on first column");
         for (int rowNo = 1; rowNo < colLength; rowNo++)//iterating through each row
@@ -188,7 +188,7 @@ public class SetMatrixZeroes implements DsaSolution {
 //            else
             if(matrix[rowNo][0]==0)
             {
-                DsaUtils.makeAllAsValueInRowWithinColRange(matrix, rowNo,0,1,rowLength);
+                DsaArrayUtils.makeAllAsValueInRowWithinColRange(matrix, rowNo,0,1,rowLength);
             }
         }
         System.out.println("making cols as zeros based on first row");
@@ -196,21 +196,21 @@ public class SetMatrixZeroes implements DsaSolution {
         {
             if(matrix[0][colNo]==0)
             {
-                DsaUtils.makeAllAsValueInColWithinRowRange(matrix, colNo,0,1, colLength);
+                DsaArrayUtils.makeAllAsValueInColWithinRowRange(matrix, colNo,0,1, colLength);
             }
         }
-        DsaUtils.printMatrix(matrix);
+        DsaArrayUtils.printMatrix(matrix);
         System.out.println("marking first row as zeroes based on matrix[0][0]");
         if(matrix[0][0]==0)
         {
-            DsaUtils.makeAllAsValueInRowWithinColRange(matrix, 0,0,0, rowLength);
+            DsaArrayUtils.makeAllAsValueInRowWithinColRange(matrix, 0,0,0, rowLength);
         }
-        DsaUtils.printMatrix(matrix);
+        DsaArrayUtils.printMatrix(matrix);
         System.out.println("marking first col as zeroes based on rowArrFirstElement");
         if(rowArrFirstElement==0){
-            DsaUtils.makeAllAsValueInColWithinRowRange(matrix, 0,0,0, colLength);
+            DsaArrayUtils.makeAllAsValueInColWithinRowRange(matrix, 0,0,0, colLength);
         }
-        DsaUtils.printMatrix(matrix);
+        DsaArrayUtils.printMatrix(matrix);
 //        time=2*O(mn)
         return Pair.of("O(mn)", "O(1)");
     }

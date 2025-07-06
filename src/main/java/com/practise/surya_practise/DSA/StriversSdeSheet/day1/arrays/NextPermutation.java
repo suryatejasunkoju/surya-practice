@@ -2,7 +2,7 @@ package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays;
 
 import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolution;
 
-import static com.practise.surya_practise.utils.DsaUtils.*;
+import static com.practise.surya_practise.utils.DsaArrayUtils.*;
 import com.practise.surya_practise.utils.Pair;
 
 public class NextPermutation implements DsaSolution
