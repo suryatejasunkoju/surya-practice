@@ -1,11 +1,8 @@
 package com.practise.surya_practise.DSA.StriversSdeSheet;
 
 
-import com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.MaximumSubArraySum;
-import com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.NextPermutation;
+import com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.*;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.PascalsTriangle.PascalsTriangleVariation1;
-import com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.SetMatrixZeroes;
-import com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.SortArraysOf0s_1s_and2s;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day2.arrays_part_2.RotateMatrix;
 import com.practise.surya_practise.DSA.miscellaneous.UglyNumber2;
 
@@ -19,7 +16,8 @@ public class DsaClient
 //        new SetMatrixZeroes().betterApproach();
 //        new PascalsTriangleVariation1().bestApproach();
 //        new SortArraysOf0s_1s_and2s().betterApproach();
-        new RotateMatrix().goodApproach();
+//        new RotateMatrix().betterApproach();
+        new StockBuyAndSell().goodApproach();
 
     }
 }
