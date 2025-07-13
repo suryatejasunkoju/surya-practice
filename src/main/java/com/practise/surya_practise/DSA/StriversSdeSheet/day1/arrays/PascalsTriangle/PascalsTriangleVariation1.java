@@ -1,7 +1,7 @@
 package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.PascalsTriangle;
 
 import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolutionInterface;
-import com.practise.surya_practise.DSA.utils.ArrayUtils;
+import com.practise.surya_practise.DSA.utils.MatrixUtils;
 import com.practise.surya_practise.DSA.utils.NumberUtils;
 import com.practise.surya_practise.DSA.utils.Pair;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class PascalsTriangleVariation1 implements DsaSolutionInterface
         if(numRows==1)
         {
             log.info("P({},{})={}", r, c, previousArr.get(0));
-            ArrayUtils.printMatrix(result);
+            MatrixUtils.printMatrix(result);
         }
         int currRowSize=2;
         currRowNo++;
@@ -61,7 +61,7 @@ public class PascalsTriangleVariation1 implements DsaSolutionInterface
             currRowSize++;
             currRowNo++;
         }
-        ArrayUtils.printMatrix(result);
+        MatrixUtils.printMatrix(result);
         return null;
     }
 
