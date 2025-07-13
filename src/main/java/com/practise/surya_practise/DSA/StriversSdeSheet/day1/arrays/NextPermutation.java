@@ -1,11 +1,11 @@
 package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays;
 
-import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolution;
+import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolutionInterface;
 
-import static com.practise.surya_practise.utils.DsaArrayUtils.*;
-import com.practise.surya_practise.utils.Pair;
+import static com.practise.surya_practise.DSA.utils.ArrayUtils.*;
+import com.practise.surya_practise.DSA.utils.Pair;
 
-public class NextPermutation implements DsaSolution
+public class NextPermutation implements DsaSolutionInterface
 {
     @Override
     public Pair<String> bruteForce() {

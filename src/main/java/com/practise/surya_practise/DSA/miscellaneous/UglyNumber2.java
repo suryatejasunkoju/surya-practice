@@ -1,11 +1,11 @@
 package com.practise.surya_practise.DSA.miscellaneous;
 
-import com.practise.surya_practise.utils.Pair;
-import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolution;
+import com.practise.surya_practise.DSA.utils.Pair;
+import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolutionInterface;
 
 import java.util.TreeSet;
 
-public class UglyNumber2 implements DsaSolution
+public class UglyNumber2 implements DsaSolutionInterface
 {
         //    https://leetcode.com/problems/ugly-number-ii/description/
 

@@ -1,12 +1,12 @@
 package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays;
 
-import com.practise.surya_practise.utils.DsaArrayUtils;
-import com.practise.surya_practise.utils.Pair;
-import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolution;
+import com.practise.surya_practise.DSA.utils.ArrayUtils;
+import com.practise.surya_practise.DSA.utils.Pair;
+import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolutionInterface;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MaximumSubArraySum implements DsaSolution {
+public class MaximumSubArraySum implements DsaSolutionInterface {
 
     @Override
     public Pair<String> bruteForce()
@@ -61,7 +61,7 @@ public class MaximumSubArraySum implements DsaSolution {
                 log.info("==>({},{})", i, j);
                 //instead of subarray iteration, finding sum by left array only[no need of right array]
                 //we can do the same with left array without right array
-                int currSubArrSum= DsaArrayUtils.findSumBtw(i, j, nums, left);
+                int currSubArrSum= ArrayUtils.findSumBtw(i, j, nums, left);
 //                log.info("i={}, maxSum={}, currSubArrSum={}", i, maxSum, currSubArrSum);
                 maxSum = Math.max(maxSum, currSubArrSum);
             }

@@ -1,9 +1,9 @@
 package com.practise.surya_practise.DSA.StriversSdeSheet;
 
-import com.practise.surya_practise.utils.Pair;
+import com.practise.surya_practise.DSA.utils.Pair;
 
 
-public interface DsaSolution
+public interface DsaSolutionInterface
 {
     Pair<String> bruteForce();
     Pair<String> goodApproach();
