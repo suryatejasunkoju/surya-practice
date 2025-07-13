@@ -73,7 +73,7 @@ public class RotateMatrix implements DsaSolutionInterface
             }
         }
         MatrixUtils.printMatrix(matrix);
-        //time=O(n^2)/2=O(n^2)
+        //time=1(for 1st row)+2(for 2nd row)+3+...n(for nth row)=O(n^2)/2=O(n^2)
         return Pair.of("O(n^2)", "O(1)");
     }
 
