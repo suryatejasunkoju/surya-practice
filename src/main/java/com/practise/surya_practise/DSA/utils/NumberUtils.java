@@ -1,6 +1,6 @@
-package com.practise.surya_practise.utils;
+package com.practise.surya_practise.DSA.utils;
 
-public class DsaNumberUtils
+public class NumberUtils
 {
     public static int findFactorial(int n)
     {

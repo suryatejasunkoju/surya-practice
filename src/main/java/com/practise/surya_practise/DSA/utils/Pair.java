@@ -1,6 +1,5 @@
-package com.practise.surya_practise.utils;
+package com.practise.surya_practise.DSA.utils;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

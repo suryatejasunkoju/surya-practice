@@ -1,8 +1,8 @@
-package com.practise.surya_practise.utils;
+package com.practise.surya_practise.DSA.utils;
 
 import java.util.List;
 
-public class DsaArrayUtils
+public class ArrayUtils
 {
     public static <V> void printArrElemsInNewLine(V[] arr)
     {
@@ -12,6 +12,15 @@ public class DsaArrayUtils
         System.out.println();
     }
     public static <V> void printArr(V[] arr)
+    {
+        System.out.print("[");
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i]+" ,");
+        }
+        System.out.println("]");
+    }
+
+    public static void printIntArr(int[] arr)
     {
         System.out.print("[");
         for (int i = 0; i < arr.length; i++) {
@@ -108,5 +117,12 @@ public class DsaArrayUtils
             System.out.println("],");
         }
         System.out.println("]");
+    }
+
+    public static void swap(int[] arr, int i, int j)
+    {
+        int tmp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=tmp;
     }
 }

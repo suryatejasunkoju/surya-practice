@@ -1,13 +1,9 @@
-package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays;
+package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.PascalsTriangle;
 
-import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolution;
-import com.practise.surya_practise.utils.DsaArrayUtils;
-import com.practise.surya_practise.utils.Pair;
+import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolutionInterface;
+import com.practise.surya_practise.DSA.utils.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class PascalsTriangleVariation2 implements DsaSolution {
+public class PascalsTriangleVariation2 implements DsaSolutionInterface {
 //    Variation 2: Given the row number n. Print the n-th row of Pascal’s triangle.
     @Override
     public Pair<String> bruteForce() {

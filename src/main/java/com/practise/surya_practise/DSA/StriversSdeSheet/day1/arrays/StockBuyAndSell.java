@@ -1,9 +1,9 @@
 package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays;
 
-import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolution;
-import com.practise.surya_practise.utils.Pair;
+import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolutionInterface;
+import com.practise.surya_practise.DSA.utils.Pair;
 
-public class StockBuyAndSell implements DsaSolution {
+public class StockBuyAndSell implements DsaSolutionInterface {
     @Override
     public Pair<String> bruteForce() {
         return null;
