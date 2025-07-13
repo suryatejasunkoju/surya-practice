@@ -1,7 +1,5 @@
 package com.practise.surya_practise.DSA.utils;
 
-import java.util.List;
-
 public class ArrayUtils
 {
     public static <V> void printArrElemsInNewLine(V[] arr)
@@ -25,21 +23,6 @@ public class ArrayUtils
         System.out.print("[");
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i]+" ,");
-        }
-        System.out.println("]");
-    }
-
-    public static <V> void printMatrix(V[][] matrix)
-    {
-        System.out.println("[");
-        for (int i = 0; i < matrix.length; i++)
-        {
-            System.out.print("[");
-            for (int j = 0; j < matrix[0].length; j++)
-            {
-                System.out.print(matrix[i][j]+" ,");
-            }
-            System.out.println("],");
         }
         System.out.println("]");
     }
@@ -73,14 +56,13 @@ public class ArrayUtils
 
     public static void makeAllAsValueInCol(Integer[][] matrix, int colNo, int value) {
         int rowCount = matrix.length;
-        int colCount = matrix[0].length;
         for (int i = 0; i <rowCount; i++) {
             matrix[i][colNo]=value;
         }
     }
 
-    public static void makeAllAsValueInRow(Integer[][] matrix, int rowNo, int value) {
-        int rowCount = matrix.length;
+    public static void makeAllAsValueInRow(Integer[][] matrix, int rowNo, int value)
+    {
         int colCount = matrix[0].length;
         for (int i = 0; i <colCount; i++)
         {
@@ -102,21 +84,6 @@ public class ArrayUtils
         {
             matrix[i][colNo]=value;
         }
-    }
-
-    public static void printMatrix(List<List<Integer>> matrix)
-    {
-        System.out.println("[");
-        for (int i = 0; i < matrix.size(); i++)
-        {
-            System.out.print("[");
-            for (int j = 0; j < matrix.get(0).size(); j++)
-            {
-                System.out.print(matrix.get(i).get(j)+" ,");
-            }
-            System.out.println("],");
-        }
-        System.out.println("]");
     }
 
     public static void swap(int[] arr, int i, int j)
