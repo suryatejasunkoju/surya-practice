@@ -40,4 +40,18 @@ public class MatrixUtils
         matrix[r][j] = matrix[r1][c1];
         matrix[r1][c1] = tmp;
     }
+
+    public static void printMatrix(int[][] matrix) {
+        System.out.println("[");
+        for (int i = 0; i < matrix.length; i++)
+        {
+            System.out.print("[");
+            for (int j = 0; j < matrix[0].length; j++)
+            {
+                System.out.print(matrix[i][j]+" ,");
+            }
+            System.out.println("],");
+        }
+        System.out.println("]");
+    }
 }

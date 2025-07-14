@@ -65,23 +65,77 @@ public class SortArraysOf0s_1s_and2s implements DsaSolutionInterface
     {
         //take 3 pointer variables,
         int[] nums = new int[]
-                {2,0,2,1,1,0}
+//                {2,0,2,1,1,0}
+//                {0,2,1,0,2}
+//                {2,1,0,1,0,1,0,1,0,2,2,2,2}
+//                {1,0,1,0,1,0,1}
+//                {1,0,1,0,2,0,1,1,0}
+//                {0,0,0,2,2,1,1}
+                {2,2,2,1,1,1,0,0,0}
                 ;
-        Random random = new Random();
-        for (int i = 0; i < nums.length; i++)
+        int zeroP=-1;
+        int oneP=-1;
+        int twoP=-1;
+        if(nums[0]==1)
         {
-            int zeroPointer=random.nextInt(nums.length);
-            int onePointer=random.nextInt(nums.length);
-            while(zeroPointer==onePointer)
+            oneP=0;
+        }
+        else if (nums[0]==0)
+        {
+            zeroP=0;
+        }
+        else {
+            twoP=0;
+        }
+        log.info("zeroP={}, oneP={}, twoP={}", zeroP, oneP, twoP);
+        ArrayUtils.printIntArr(nums);
+        for (int i = 1; i < nums.length; i++)
+        {
+            log.info("i={},zeroP={}, oneP={}, twoP={}", i, zeroP, oneP, twoP);
+            int curr = nums[i];
+            if(curr==0)
             {
-                onePointer=random.nextInt(nums.length);
+                if(oneP!=-1)
+                {
+                    ArrayUtils.swap(nums, oneP, i);
+                    if (twoP!=-1)
+                    {
+//                        ArrayUtils.swap(nums, oneP, twoP);
+                        ArrayUtils.swap(nums, twoP, i);
+                        twoP++;
+                    }
+                    oneP++;
+                }
+                else if (twoP!=-1)
+                {
+                    ArrayUtils.swap(nums, twoP, i);
+                    zeroP=twoP;
+                    twoP++;
+                }
+                //put this curr at 1st 1 position & that 1 at first 2 position(if exists)
+                if (zeroP==-1)
+                    zeroP=i;
             }
-            int twoPointer=random.nextInt(nums.length);
-            while(zeroPointer==twoPointer || twoPointer==onePointer)
+            else if (curr==1)
             {
-                twoPointer=random.nextInt(nums.length);
+                log.info("[[");
+                if (twoP!=-1)
+                {
+                    log.info("====");
+                    ArrayUtils.swap(nums, twoP, i);
+                    if (oneP==-1){
+                        oneP=twoP;
+                    }
+                    twoP++;
+                }
+                if (oneP==-1)
+                    oneP=i;
             }
-            sortZeroOneTwoWithin3Pointers(zeroPointer, onePointer, twoPointer, nums);
+            else {
+                if(twoP==-1)
+                    twoP=i;
+            }
+            ArrayUtils.printIntArr(nums);
         }
         return null;
     }
@@ -91,25 +145,4 @@ public class SortArraysOf0s_1s_and2s implements DsaSolutionInterface
         return null;
     }
 
-    private void sortZeroOneTwoWithin3Pointers(int zeroPointer, int onePointer, int twoPointer, int[] arr)
-    {
-        log.info("zeroPointer={}, onePointer={}, twoPointer={}", zeroPointer, onePointer, twoPointer);
-        ArrayUtils.printIntArr(arr);
-        if(arr[zeroPointer]>arr[onePointer])
-        {
-            ArrayUtils.swap(arr, zeroPointer, onePointer);
-            if (arr[onePointer]>arr[twoPointer])
-            {
-                ArrayUtils.swap(arr, onePointer, twoPointer);
-            }
-        }
-        else {
-            if (arr[onePointer]>arr[twoPointer])
-            {
-                ArrayUtils.swap(arr, twoPointer, onePointer);
-            }
-        }
-        ArrayUtils.printIntArr(arr);
-        log.info("---------->");
-    }
 }
