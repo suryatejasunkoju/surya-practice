@@ -1,5 +1,8 @@
 package com.practise.surya_practise.DSA.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArrayUtils
 {
     public static <V> void printArrElemsInNewLine(V[] arr)
@@ -91,5 +94,25 @@ public class ArrayUtils
         int tmp=arr[i];
         arr[i]=arr[j];
         arr[j]=tmp;
+    }
+
+    public static int[] formDuplicateIntArr(int[] nums)
+    {
+        int[] arr = new int[nums.length];
+        for (int i = 0; i < nums.length; i++)
+        {
+            arr[i]=nums[i];
+        }
+        return arr;
+    }
+
+    public static List<Integer> fromIntArrToListInteger(int[] nums)
+    {
+        List<Integer> list= new ArrayList<>(nums.length);
+        for (int i = 0; i < nums.length; i++)
+        {
+            list.add(nums[i]);
+        }
+        return list;
     }
 }
