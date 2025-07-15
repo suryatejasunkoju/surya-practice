@@ -14,10 +14,11 @@ public class DsaClient
     {
 //        new UglyNumber2().goodApproach();
 //        new NextPermutation().bruteForce();
+        new Permutations().bruteForce();
 //        new MaximumSubArraySum().goodApproach();
 //        new SetMatrixZeroes().betterApproach();
 //        new PascalsTriangleVariation1().bestApproach();
-        new SortArraysOf0s_1s_and2s().betterApproach();
+//        new SortArraysOf0s_1s_and2s().betterApproach();
 //        new RotateMatrix().betterApproach();
 //        new StockBuyAndSell().goodApproach();
 //        new MergeOverlappingSubintervals().bruteForce();
