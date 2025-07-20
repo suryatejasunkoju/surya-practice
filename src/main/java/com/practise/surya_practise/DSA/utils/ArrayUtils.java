@@ -115,4 +115,28 @@ public class ArrayUtils
         }
         return list;
     }
+    public static void reverse(int[] arr, int i, int j)
+    {
+        while(i<j){
+            swap(arr, i, j);
+            i++;
+            j--;
+        }
+    }
+
+    public static <V> void reverseGenericArr(V[] arr, int i, int j)
+    {
+        while(i<j){
+            swap(arr, i, j);
+            i++;
+            j--;
+        }
+    }
+
+    public static <V> void swap(V[] arr, int i, int j)
+    {
+        V tmp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=tmp;
+    }
 }

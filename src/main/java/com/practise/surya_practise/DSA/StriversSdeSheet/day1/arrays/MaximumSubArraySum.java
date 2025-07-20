@@ -11,43 +11,44 @@ public class MaximumSubArraySum implements DsaSolutionInterface {
     @Override
     public Pair<String> bruteForce()
     {
-//        Pair<String, String>
         log.info("MaximumSubArraySum");
         int[] nums = new int[]{5,4,-1,7,8};
         int maxSum = Integer.MIN_VALUE;
+        int n = nums.length;
         //for each subarray find sum & find max out of all these sums
-        for (int i = 0; i < nums.length; i++)//O(n)
+        for (int subArrSize = 1; subArrSize <=n; subArrSize++)
         {
-            for (int j = i; j < nums.length; j++)//O(n)
+            int size=subArrSize;
+            for (int start = 0; start<n; start++)
             {
-//                log.info("==>({},{})", i, j);
-                int currSubArrSum=0;
-
-                //subarray iteration
-                for (int k = i; k <= j; k++)//O(n)
+                int currStart=start;
+                int currEnd=start+size;
+                int currSum=0;
+                for (int i = currStart; i <=currEnd; i++)
                 {
-                    currSubArrSum+=nums[k];
-//                    log.info("({},{})", i, k);
+                    currSum+=nums[i];
+                    maxSum=Math.max(currSum, maxSum);
                 }
-                log.info("i={}, maxSum={}, currSubArrSum={}", i, maxSum, currSubArrSum);
-                maxSum = Math.max(maxSum, currSubArrSum);
             }
         }
+
         log.info("maxSum={}", maxSum);
         return Pair.of("O(n^3)", "O(1)");
     }
-    //0
 
     @Override
-    public Pair<String> goodApproach() {
-//        log.info("MaximumSubArraySum");
+    public Pair<String> goodApproach()
+    {
+        //my approach:
+        //        log.info("MaximumSubArraySum");
         int[] nums = new int[]{5,4,-1,7,8};
         int length = nums.length;
         int[] left = new int[length];
 
         //forming left sum array
         int s=0;
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++)
+        {
             s+=nums[i];
             left[i]=s;
         }
@@ -70,9 +71,29 @@ public class MaximumSubArraySum implements DsaSolutionInterface {
         return Pair.of("O(n^2)", "O(n)");
     }
 
-
     @Override
     public Pair<String> betterApproach()
+    {
+        int[] nums = new int[]{5,4,-1,7,8};
+        int n = nums.length;
+        int maxSum = Integer.MIN_VALUE;
+        //for each starting index of subarray, find all possible sub-arr sums from that startingIndex till n. And find max out of all sums
+        for (int subArrStartIndex = 0; subArrStartIndex < n; subArrStartIndex++)
+        {
+            //for every subarray of each length starting from subArrStartIndex, find sums
+            int currSum=0;
+            for (int j = subArrStartIndex; j < n; j++)
+            {
+                currSum+=nums[j];
+                maxSum = Math.max(maxSum, currSum);
+            }
+        }
+        log.info("maxSum={}", maxSum);
+        return Pair.of("O(n^2)", "O(1)");
+    }
+
+    @Override
+    public Pair<String> bestApproach()
     {
         //Kadane's Algo
         int[] nums = new int[]{1,2,-1,-2,-4,-124,2,-4,34};
@@ -117,10 +138,5 @@ public class MaximumSubArraySum implements DsaSolutionInterface {
         }
         log.info("maxSum={}", maxSum);
         return Pair.of("O(n)", "O(1)");
-    }
-
-    @Override
-    public Pair<String> bestApproach() {
-        return Pair.of("", "");
     }
 }

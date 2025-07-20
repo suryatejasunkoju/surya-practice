@@ -1,4 +1,4 @@
-package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays;
+package com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.related;
 
 import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolutionInterface;
 import com.practise.surya_practise.DSA.utils.ArrayUtils;
@@ -23,12 +23,12 @@ public class Permutations implements DsaSolutionInterface {
         List<List<Integer>> result = new ArrayList<>();
         rec(nums, 0, result);
         log.info("result={}", result);
-        return null;
+        return Pair.of("","");
     }
 
     private void rec(int[] nums, int level, List<List<Integer>> result)
     {
-        if (level== nums.length)
+        if (level==nums.length)
         {
             List<Integer> list = ArrayUtils.fromIntArrToListInteger(nums);
             result.add(list);
