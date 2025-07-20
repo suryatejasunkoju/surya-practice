@@ -44,7 +44,7 @@ public class SetMatrixZeroes implements DsaSolutionInterface {
         //We don't need to duplicate matrix to store 0 values instead we mark within the matrix.
         //Approach:
         //iterate through all cells of matrix.
-        //for each cell, if it contains 0 then mark that row & column as -1[no which cant be present in any cell of matrix] except if that row or column contains zero.
+        //for each cell, if it contains 0 then mark that row & column as -1[=number which cant be present in any cell of matrix] except if that row or column contains zero.
         //after iteration is done, replace all -1 with 0, which will give the answer.
         //here, we are marking row & col values to -1 instead of 0, because 0 overrides actual non-zero values in that row & column. So, while iterating that row we consider cell as zero even if its initially not a zero.
         Integer[][] matrix=new Integer[][]{{0,1,2,0},{3,4,5,2},{1,3,1,5}};

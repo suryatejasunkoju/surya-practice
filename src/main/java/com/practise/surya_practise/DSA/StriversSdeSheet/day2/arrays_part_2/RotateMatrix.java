@@ -1,6 +1,7 @@
 package com.practise.surya_practise.DSA.StriversSdeSheet.day2.arrays_part_2;
 
 import com.practise.surya_practise.DSA.StriversSdeSheet.DsaSolutionInterface;
+import com.practise.surya_practise.DSA.utils.ArrayUtils;
 import com.practise.surya_practise.DSA.utils.MatrixUtils;
 import com.practise.surya_practise.DSA.utils.Pair;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,8 @@ public class RotateMatrix implements DsaSolutionInterface
 {
     @Override
     public Pair<String> bruteForce() {
-        //create new n*m matrix and populate it from old matrix in reversal order
+        //create new n*m matrix and populate it by making rows into cols & cols into rows of old matrix
+        //then reverse all rows
         Integer[][] matrix=new Integer[][]{{1,2,3},{4,5,6},{7,8,9}};
         MatrixUtils.printMatrix(matrix);
         int rowCount = matrix.length;
@@ -22,11 +24,42 @@ public class RotateMatrix implements DsaSolutionInterface
             }
         }
         MatrixUtils.printMatrix(duplicate);
+        for (int i = 0; i <rowCount; i++) {
+            Integer[] currRow = duplicate[i];
+            ArrayUtils.reverseGenericArr(currRow, 0, rowCount-1);
+        }
+        MatrixUtils.printMatrix(duplicate);
+//        T(n)=O(n^2)+O(n^2)=2*O(n^2)=O(n^2)
         return Pair.of("O(n^2)", "O(n^2)");
     }
 
     @Override
     public Pair<String> goodApproach() 
+    {
+        //In duplicate arr, last col=reverse of 1st row of original matrix.
+        // nth col = reverse of n-1-nth row of original matrix
+        Integer[][] matrix=new Integer[][]{{1,2,3},{4,5,6},{7,8,9}};
+        int n = matrix.length;
+        Integer[][] duplicate=new Integer[n][n];
+        MatrixUtils.printMatrix(matrix);
+        for (int rowNo = 0; rowNo <n; rowNo++)
+        {
+            Integer[] currRow = matrix[rowNo];
+            int colNo=n-1-rowNo;
+            for (int j = 0; j<n; j++)
+            {
+                duplicate[j][colNo]=currRow[j];
+            }
+        }
+        MatrixUtils.printMatrix(duplicate);
+        MatrixUtils.copyMatrix(duplicate, matrix);
+        MatrixUtils.printMatrix(matrix);
+//        T(n)=2*O(n^2)=O(n^2), S(n)=O(n^2)
+        return Pair.of("O(n^2)", "O(1)");
+    }
+
+    @Override
+    public Pair<String> betterApproach()
     {
         //Within original matrix, make rows into cols(i.e, cols into rows automatically), reverse all rows, which is transpose of matrix
         Integer[][] matrix=new Integer[][]
@@ -36,7 +69,7 @@ public class RotateMatrix implements DsaSolutionInterface
         int n = matrix.length;
         MatrixUtils.printMatrix(matrix);
         //making rows into cols
-        for (int rowNo = 0; rowNo<n; rowNo++)//O(n^2)
+        for (int rowNo = 0; rowNo<n; rowNo++)//O(n!)
         {
             for (int colNo = rowNo; colNo < n; colNo++)
             {
@@ -46,34 +79,16 @@ public class RotateMatrix implements DsaSolutionInterface
         }
         MatrixUtils.printMatrix(matrix);
         //reversing all rows
-        for (int rowNo = 0; rowNo<n; rowNo++)//O(n^2)
+        for (int rowNo = 0; rowNo<n; rowNo++)//O(n^2/2)
         {
-            for (int colNo = 0; colNo < n/2; colNo++)
-            {
-                MatrixUtils.swap(matrix, rowNo, colNo, rowNo, n-1-colNo);
-            }
+            ArrayUtils.reverseGenericArr(matrix[rowNo], 0, n-1);
+//            for (int colNo = 0; colNo < n/2; colNo++)
+//            {
+//                MatrixUtils.swap(matrix, rowNo, colNo, rowNo, n-1-colNo);
+//            }
         }
         MatrixUtils.printMatrix(matrix);
-        //time=O(n^2)*2=O(n^2)
-        return Pair.of("O(n^2)", "O(1)");
-    }
-
-    @Override
-    public Pair<String> betterApproach() {
-        //with in same arr, do matrix transpose by swapping matrix(row, col) to matrix(col, row) only for the L triangle
-        Integer[][] matrix=new Integer[][]{{1,2,3},{4,5,6},{7,8,9}};
-        MatrixUtils.printMatrix(matrix);
-        int n = matrix.length;
-
-        for (int i = 0; i <n; i++)
-        {
-            for (int j = 0; j<i; j++)
-            {
-                MatrixUtils.swap(matrix, i, j, j, i);
-            }
-        }
-        MatrixUtils.printMatrix(matrix);
-        //time=1(for 1st row)+2(for 2nd row)+3+...n(for nth row)=O(n^2)/2=O(n^2)
+        //time=O(n!)+O(n^2/2)=O(n^2)
         return Pair.of("O(n^2)", "O(1)");
     }
 

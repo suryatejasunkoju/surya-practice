@@ -54,4 +54,17 @@ public class MatrixUtils
         }
         System.out.println("]");
     }
+
+    public static <V> void copyMatrix(V[][] matrix, V[][] duplicate)
+    {
+        int colLen = matrix.length;
+        int rowLen = matrix[0].length;
+        for (int i = 0; i < colLen; i++)
+        {
+            for (int j = 0; j < rowLen; j++)
+            {
+                duplicate[i][j]=matrix[i][j];
+            }
+        }
+    }
 }
