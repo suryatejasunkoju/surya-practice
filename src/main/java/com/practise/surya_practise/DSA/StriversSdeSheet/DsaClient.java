@@ -7,6 +7,7 @@ import com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.related.Perm
 import com.practise.surya_practise.DSA.StriversSdeSheet.day2.arrays_part_2.MergeOverlappingSubintervals;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day2.arrays_part_2.MergeTwoSortedArraysWithoutExtraSpace;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day2.arrays_part_2.RotateMatrix;
+import com.practise.surya_practise.DSA.StriversSdeSheet.day3.arrays_part_3.GridUniquePaths;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day3.arrays_part_3.ReversePairs;
 import com.practise.surya_practise.DSA.miscellaneous.UglyNumber2;
 
@@ -25,7 +26,7 @@ public class DsaClient
 //        new StockBuyAndSell().goodApproach();
 //        new MergeOverlappingSubintervals().bruteForce();
 //        new ReversePairs().goodApproach();
-        new MergeTwoSortedArraysWithoutExtraSpace().betterApproach();
-
+//        new MergeTwoSortedArraysWithoutExtraSpace().betterApproach();
+        new GridUniquePaths().goodApproach();
     }
 }
