@@ -24,9 +24,9 @@ public class DsaClient
 //        new SortArraysOf0s_1s_and2s().betterApproach();
 //        new RotateMatrix().betterApproach();
 //        new StockBuyAndSell().goodApproach();
-//        new MergeOverlappingSubintervals().bruteForce();
+        new MergeOverlappingSubintervals().bruteForce();
 //        new ReversePairs().goodApproach();
 //        new MergeTwoSortedArraysWithoutExtraSpace().betterApproach();
-        new GridUniquePaths().goodApproach();
+//        new GridUniquePaths().goodApproach();
     }
 }

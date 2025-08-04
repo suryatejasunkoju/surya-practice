@@ -1,8 +1,11 @@
 package com.practise.surya_practise.DSA.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class ArrayUtils
 {
     public static <V> void printArrElemsInNewLine(V[] arr)
@@ -138,5 +141,15 @@ public class ArrayUtils
         V tmp=arr[i];
         arr[i]=arr[j];
         arr[j]=tmp;
+    }
+
+    public static void printList(List<int[]> result)
+    {
+        log.info("[");
+        for (int i = 0; i < result.size(); i++)
+        {
+            log.info("{},", result.get(i));
+        }
+        log.info("]");
     }
 }
