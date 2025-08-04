@@ -67,4 +67,17 @@ public class MatrixUtils
             }
         }
     }
+
+    public static void populateMatrixWithDefaultValues(int[][] matrix, int defaultValue)
+    {
+        int colLen = matrix.length;
+        int rowLen = matrix[0].length;
+        for (int i = 0; i < colLen; i++)
+        {
+            for (int j = 0; j < rowLen; j++)
+            {
+                matrix[i][j]=defaultValue;
+            }
+        }
+    }
 }
