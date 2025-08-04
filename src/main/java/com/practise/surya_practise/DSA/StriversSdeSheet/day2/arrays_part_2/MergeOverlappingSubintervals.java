@@ -45,7 +45,9 @@ public class MergeOverlappingSubintervals implements DsaSolutionInterface {
         }
         log.info("bruteForce, result=\n");
         ArrayUtils.printList(result);
-        return Pair.of("O(nlogn)","O(1)");
+        //time=O(nlog(n))+O(n)=O(nlog(n))
+        //space=resultant.size=at max O(n)
+        return Pair.of("O(nlog(n))","O(n)");
     }
 
     int[] recursivelyMergeAt(int index, int[] currPair, int[][] nums)
