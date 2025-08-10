@@ -15,6 +15,10 @@ public class TwoSumProblem implements DsaSolutionInterface
     @Override
     public Pair<String> bruteForce()
     {
+        //approach:
+        //for each element from 0 to len-1
+        //check for other element starting from next index of curr element, so that
+        //both having sum as target.
         int[] nums = new int[]
 //                {3,2,4}
 //                {2,7,11,15}
@@ -55,6 +59,10 @@ public class TwoSumProblem implements DsaSolutionInterface
     @Override
     public Pair<String> goodApproach()
     {
+        //approach:
+        //populate hashMap with element, index
+        //iterate arr from start to end, while doing so, check whether hashMap has target-currElement
+        //if found its the ans
         int[] nums = new int[]
 //                {3,2,4}
                 {2,7,11,15}
@@ -86,6 +94,15 @@ public class TwoSumProblem implements DsaSolutionInterface
     @Override
     public Pair<String> betterApproach()
     {
+        //approach:
+        //sort arr in asc order
+        //have 2 pointers as start=0 & end=len-1
+        //if sum of elements at start&end is:
+        // >target, end--
+        // <target, start++
+        //==target, found ans
+        //do this until start<end
+
         int[] nums = new int[]
                 {3,2,4}
 //                {2,7,11,15}
