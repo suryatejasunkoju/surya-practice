@@ -11,8 +11,8 @@ public class ReversePairs implements DsaSolutionInterface {
     public Pair<String> bruteForce()
     {
         int[] nums = new int[]
-                {2, 4, 3,  5, 1, 3, 2, 3, 1}
-//                {2,4,3,5,1}
+//                {2, 4, 3, 5, 1, 3, 2, 3, 1}
+                {2,4,3,5,1}
 //                    {1,3,2,3,1}
                 ;
         int length = nums.length;

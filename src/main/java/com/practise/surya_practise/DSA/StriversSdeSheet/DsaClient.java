@@ -9,6 +9,7 @@ import com.practise.surya_practise.DSA.StriversSdeSheet.day2.arrays_part_2.Merge
 import com.practise.surya_practise.DSA.StriversSdeSheet.day2.arrays_part_2.RotateMatrix;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day3.arrays_part_3.GridUniquePaths;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day3.arrays_part_3.ReversePairs;
+import com.practise.surya_practise.DSA.StriversSdeSheet.day4.arrays_part_4.TwoSumProblem;
 import com.practise.surya_practise.DSA.miscellaneous.UglyNumber2;
 
 public class DsaClient
@@ -24,9 +25,10 @@ public class DsaClient
 //        new SortArraysOf0s_1s_and2s().betterApproach();
 //        new RotateMatrix().betterApproach();
 //        new StockBuyAndSell().goodApproach();
-        new MergeOverlappingSubintervals().bruteForce();
-//        new ReversePairs().goodApproach();
+//        new MergeOverlappingSubintervals().bruteForce();
+//        new ReversePairs().bruteForce();
 //        new MergeTwoSortedArraysWithoutExtraSpace().betterApproach();
 //        new GridUniquePaths().goodApproach();
+        new TwoSumProblem().betterApproach();
     }
 }
