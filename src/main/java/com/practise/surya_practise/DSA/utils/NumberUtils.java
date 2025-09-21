@@ -51,4 +51,36 @@ public class NumberUtils
         log.info("result={}", result);
         return result;
     }
+    public static int consecutiveNosSum(int start, int end)
+    {
+        //gives sum from start to end[both inclusive]
+        //[start,end]=[3,8]
+        //arr=[3,4,5,6,7,8]
+        //sum=3+4+5+6+7+8=(2*6)+[1+2+3+4+5+6]=commonFactor*arrSize+[sum of 1 to n nos]
+        if (start==end){
+            return start;
+        }
+        int sum=0, arrSize=end-start+1;
+        int commonFactor = start - 1;
+        sum+=(commonFactor *arrSize);
+        int sumFrom1ToN=(arrSize*(arrSize+1))/2;
+        sum+=sumFrom1ToN;
+        return sum;
+    }
+    public static int consecutiveNosSquaresSum(int start, int end)
+    {
+        int sum=0, arrSize=end-start+1, commonFactor=start-1;
+        //series:start^2, (start+1)^2, (start+2)^2, (start+3)^2, ... end^2
+        //seriesSize = end-start+1, commonFactor=start-1
+        //sum of series=(sum of squares of nos from 1 to n) + [commonFactor^2*seriesSize] + 2*commonFactor*[sum of nos from 1 to n]
+        int sumOf1ToNSquares=(arrSize*(arrSize+1)*(2*arrSize+1))/6;
+        int sumOf1ToN=consecutiveNosSum(1, arrSize);
+        if(start==1){
+            return sumOf1ToNSquares;
+        }
+        sum+=sumOf1ToNSquares;
+        sum+=(commonFactor*commonFactor*arrSize);
+        sum+=(2*commonFactor*sumOf1ToN);
+        return sum;
+    }
 }
