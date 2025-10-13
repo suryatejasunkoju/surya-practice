@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-public class LongestSubstringWithoutRepeat implements DsaSolutionInterface
+public class LongestSubstringWithoutRepeatingChars implements DsaSolutionInterface
 {
 //    https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
     @Override
@@ -72,7 +72,7 @@ public class LongestSubstringWithoutRepeat implements DsaSolutionInterface
             maxFreq = Math.max(freq, maxFreq);
             freqMap.put(charAt, freq);
         }
-        //observation:non repeating substring inputStrLength<=(inputStrLength-maxFreq+1)
+        //observation:always, non repeating substring length<=(inputStrLength-maxFreq+1)
         if(maxFreq==1){
             longestSubStrLength=inputStrLength;
         }
@@ -122,7 +122,42 @@ public class LongestSubstringWithoutRepeat implements DsaSolutionInterface
     }
 
     @Override
-    public Pair<String> betterApproach() {
+    public Pair<String> betterApproach()
+    {
+        String inputStr="akjhuvuvbhjhvjbjbhjkyfrtc";
+        String resultStr=null;
+        int longestSubStrLength=0;
+        int length = inputStr.length();
+        int left=0, right=0, currWindowSize=1;
+        Map<Character, Integer> charPositionMap=new HashMap<>(length);
+        log.info("length={}", length);
+        while (right<length)
+        {
+            log.info("{}, left={}, right={}", inputStr, left, right);
+            char currChar = inputStr.charAt(right);
+            if (charPositionMap.containsKey(currChar))
+            {
+                Integer olderPstn = charPositionMap.get(currChar);
+                if(olderPstn>=left)
+                {
+                    left=olderPstn+1;
+                }
+                charPositionMap.put(currChar, right);
+            }
+            else
+            {
+                charPositionMap.put(currChar, right);
+            }
+            currWindowSize=right-left+1;
+            if (currWindowSize>longestSubStrLength)
+            {
+                longestSubStrLength=currWindowSize;
+                resultStr=inputStr.substring(left, right+1);
+            }
+            log.info("charPositionMap={}", charPositionMap);
+            right++;
+        }
+        log.info("betterApproach, resultStr={}", resultStr);
         return null;
     }
 
