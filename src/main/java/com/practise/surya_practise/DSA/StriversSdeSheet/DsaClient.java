@@ -5,11 +5,8 @@ import com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.*;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.PascalsTriangle.PascalsTriangleVariation1;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day1.arrays.related.Permutations;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day2.arrays_part_2.*;
-import com.practise.surya_practise.DSA.StriversSdeSheet.day3.arrays_part_3.GridUniquePaths;
-import com.practise.surya_practise.DSA.StriversSdeSheet.day3.arrays_part_3.ReversePairs;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day3.arrays_part_3.SearchInA2DMatrix;
-import com.practise.surya_practise.DSA.StriversSdeSheet.day4.arrays_part_4.LongestSubstringWithoutRepeat;
-import com.practise.surya_practise.DSA.StriversSdeSheet.day4.arrays_part_4.TwoSumProblem;
+import com.practise.surya_practise.DSA.StriversSdeSheet.day4.arrays_part_4.LongestSubstringWithoutRepeatingChars;
 import com.practise.surya_practise.DSA.miscellaneous.UglyNumber2;
 
 public class DsaClient
@@ -19,8 +16,8 @@ public class DsaClient
 //        miscellaneous();
 //        day1();
 //        day2();
-        day3();
-//        day4();
+//        day3();
+        day4();
 //        day5();
     }
     private static void miscellaneous()
@@ -53,7 +50,7 @@ public class DsaClient
     }
     private static void day4()
     {
-        new LongestSubstringWithoutRepeat().goodApproach();
+        new LongestSubstringWithoutRepeatingChars().betterApproach();
 //        new TwoSumProblem().betterApproach();
     }
     private static void day5(){
