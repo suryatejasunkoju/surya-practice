@@ -1,0 +1,194 @@
+//Build a Docker Image
+docker build -t myapp:1.0
+//-t gives it a tag (name:version)
+
+//Run a Container
+docker run -d -p 8080:8080 --name myapp-container myapp:1.0
+<host_port>:<container_port>
+docker run -d -p 9090:8080 --name myapp-container myapp:1.0
+Your app inside container listens on port 8080
+You access it via your host machine on port 9090. Visit → http://localhost:9090
+
+//View Running Containers
+docker ps
+docker ps -a
+//Add -a to see all (including stopped) containers
+
+//Stop Containers
+docker stop myapp-container
+
+//Remove Containers
+docker rm myapp-container
+
+//Streams the logs of the running app (-f means follow).
+docker logs -f myapp-container
+
+//Access Shell Inside a Running Container
+docker exec -it myapp-container /bin/bash
+
+//Restart Container
+docker restart myapp-container
+
+//Mount Code for Hot Reload
+docker run -d -p 8080:8080 -v $(pwd):/app myapp:1.0
+
+//create a volume. Volumes persist data even when the container is removed
+docker volume create appdata
+
+//Use a Named Volume
+docker run -v appdata:/var/lib/mysql mysql:8
+
+//Create a Docker Network
+docker network create my-network
+
+//Run Containers in the Same Network
+docker run -d --name mysql --network my-network -e MYSQL_ROOT_PASSWORD=root mysql:8
+docker run -d --name myapp --network my-network myapp:1.0
+//Containers in the same network can reach each other via their container name.
+//Example: your Spring Boot app can connect to MySQL at hostname mysql.
+
+//List all local images
+docker images
+
+//Remove unused images
+docker image prune
+
+//Remove stopped containers
+docker container prune
+
+//Clean up everything
+docker system prune -a
+
+Example Real-Life Flow for a Java Developer:
+mvn clean package -DskipTests //Build your app
+docker build -t myapp:1.0 //Build Docker image of app
+docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql:8
+//Run MySQL
+docker run -d -p 8080:8080 --name myapp --network bridge myapp:1.0 //Run your app
+docker logs -f myapp //Check logs
+
+docker-compose.yml:
+version: '3'
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+    ports:
+      - "3306:3306"
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+
+
+//Start both MySQL and Spring Boot app containers together with a single command.
+docker-compose up -d
+//Lists all containers that are defined in the current docker-compose.yml file.
+docker-compose ps
+Ex output:
+     Name                    Command               State          Ports
+---------------------------------------------------------------------------
+myproject_app_1      java -jar app.jar          Up      0.0.0.0:8080->8080/tcp
+myproject_mysql_1    docker-entrypoint.sh ...  Up      0.0.0.0:3306->3306/tcp
+
+
+//Stopping both MySQL and Spring Boot app containers together with a single command.
+docker-compose down
+
+
+Memory usage in docker:
+1. Disk Usage
+Even when a container is stopped, Docker still keeps its filesystem and metadata on disk.
+* The image layers pulled from Docker Hub
+* The container’s writable layer (where it stores logs, temporary files, DB data, etc.)
+* Volumes(if used)
+Example:
+docker images       # shows image disk usage
+docker ps -a        # shows all containers
+docker system df    # shows total disk usage
+====>
+docker rm mycontainer
+docker rmi myimage
+docker system prune -a
+//then, disk space (ROM) is freed.
+
+2. RAM (Memory) Usage
+RAM is used only while the container is running.
+* Each running container consumes memory based on:
+  * The processes running inside (like Java)
+  * The JVM heap and thread usage
+* Once you stop the container:
+  docker stop myapp
+
+
+
+
+
+
+
+
+
+multi-stage builds:
+A multi-stage build in Docker allows you to use multiple `FROM` statements in a single Dockerfile, separating the build environment from the runtime & build environments.
+* The first stage contains everything needed to build the application (e.g., Maven + JDK + source code).
+* The final stage contains only what’s needed to run the application (e.g., JRE + packaged JAR).
+✅ Benefit: Reduces image size because all the build tools, caches, and intermediate files are not included in the final runtime image. Avoids huge images with Maven/Gradle inside.
+
+## 🔹 2. Why It Reduces Image Size
+Consider a Spring Boot app:
+* Without multi-stage build:
+  * You might use `openjdk:17` + Maven inside the image
+  * Image includes Maven, source code, dependencies, build cache
+  * Image size ~ 800MB+
+* With multi-stage build:
+  * Build happens in a temporary image
+  * Copy only the final JAR to a lightweight JRE image
+  * Image size ~ 100–150MB
+
+## 🔹 3. Example: Spring Boot App Multi-Stage Build
+1. Use `AS build` alias to name stages.
+2. You can have multiple intermediate stages, e.g., one for frontend build + one for backend.
+```dockerfile
+# Stage 1: Build:-
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Stage 2: Runtime:-
+FROM eclipse-temurin:17-jre-jammy
+WORKDIR /app
+COPY --from=build /app/target/myapp.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
+```
+
+
+### 🔹 Step-by-Step Explanation
+1. Stage 1: Build Stage
+   * `FROM maven:3.9.6-eclipse-temurin-17 AS build`
+     Uses Maven + JDK to build the app
+   * `COPY src ./src` + `COPY pom.xml .`
+     Copy source code and dependencies descriptor
+   * `RUN mvn clean package -DskipTests`
+     Build the app → produces `target/myapp.jar`
+
+2. Stage 2: Runtime Stage
+   * `FROM eclipse-temurin:17-jre-jammy`
+     Lightweight JRE image (no Maven, no source code)
+   * `COPY --from=build /app/target/myapp.jar app.jar`
+     Copies only the JAR from build stage
+   * `ENTRYPOINT ["java", "-jar", "app.jar"]`
+     Runs the app
+---
+
+### 🔹 4. Compare Image Sizes
+| Approach                 | Image Size | Contains                              |
+| ------------------------ | ---------- | ------------------------------------- |
+| Single-stage (Maven+JDK) | 800MB+     | Maven, JDK, source code, dependencies |
+| Multi-stage              | 120MB      | Only JRE + packaged JAR               |
