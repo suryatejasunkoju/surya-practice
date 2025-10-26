@@ -9,6 +9,7 @@ import com.practise.surya_practise.DSA.StriversSdeSheet.day3.arrays_part_3.Searc
 import com.practise.surya_practise.DSA.StriversSdeSheet.day4.arrays_part_4.LongestConsecutiveSequence;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day4.arrays_part_4.LongestSubArrayWithSumK;
 import com.practise.surya_practise.DSA.StriversSdeSheet.day4.arrays_part_4.LongestSubstringWithoutRepeatingChars;
+import com.practise.surya_practise.DSA.miscellaneous.CountOfSmallerNumbersAfterSelf;
 import com.practise.surya_practise.DSA.miscellaneous.UglyNumber2;
 
 public class DsaClient
@@ -17,14 +18,15 @@ public class DsaClient
     {
 //        miscellaneous();
 //        day1();
-//        day2();
+        day2();
 //        day3();
-        day4();
+//        day4();
 //        day5();
     }
     private static void miscellaneous()
     {
-        new UglyNumber2().goodApproach();
+//        new UglyNumber2().goodApproach();
+        new CountOfSmallerNumbersAfterSelf().bruteForce();
     }
     private static void day1()
     {
@@ -40,7 +42,7 @@ public class DsaClient
 
     private static void day2(){
 //        new FindTheDuplicateInAnArrayOfNPlusOneIntegers().bruteForce();
-        new RepeatAndMissingNumber().bestApproach();
+        new RepeatAndMissingNumber().betterApproach();
 //        new MergeOverlappingSubintervals().bruteForce();
 //        new MergeTwoSortedArraysWithoutExtraSpace().betterApproach();
 //        new RotateMatrix().betterApproach();

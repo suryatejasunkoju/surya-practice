@@ -10,24 +10,33 @@ import java.util.*;
 
 @Slf4j
 public class RepeatAndMissingNumber implements DsaSolutionInterface {
+
+    public Pair<String> bruteBruteForce()
+    {
+        int[] arr = {3,1,2,5,3};
+        int length = arr.length;
+        int A=-1, B=-1;
+        Arrays.sort(arr);
+        ArrayUtils.printIntArr(arr);
+        int oneToNXor=0, arrElementsXor=0;
+        for (int i = 0; i < length -1; i++) {
+            if(arr[i]==arr[i+1]){
+                A=arr[i];
+            }
+            oneToNXor^=(i+1);
+            arrElementsXor^=(arr[i]);
+        }
+        oneToNXor^= length;
+        arrElementsXor^=arr[length -1];
+        B=oneToNXor^arrElementsXor^A;
+        log.info("bruteBruteForce, A={},B={}", A, B);
+        return Pair.of("O(nlogn+n)", "O(1)");
+    }
     @Override
     public Pair<String> bruteForce() {
         int[] arr = {3,1,2,5,3};
         int length = arr.length;
         int A=-1, B=-1;
-//        Arrays.sort(arr);
-//        ArrayUtils.printIntArr(arr);
-//        int oneToNXor=0, arrElementsXor=0;
-//        for (int i = 0; i < length -1; i++) {
-//            if(arr[i]==arr[i+1]){
-//                A=arr[i];
-//            }
-//            oneToNXor^=(i+1);
-//            arrElementsXor^=(arr[i]);
-//        }
-//        oneToNXor^= length;
-//        arrElementsXor^=arr[length -1];
-//        B=oneToNXor^arrElementsXor^A;
 
         int[] freq=new int[length];
         for (int i = 0; i < length; i++) {
@@ -45,7 +54,7 @@ public class RepeatAndMissingNumber implements DsaSolutionInterface {
             }
         }
         log.info("A={},B={}", A, B);
-        return Pair.of("O(nlogn+n)", "O(1)");
+        return Pair.of("O(2n)", "O(n)");
     }
 
     @Override
@@ -77,29 +86,31 @@ public class RepeatAndMissingNumber implements DsaSolutionInterface {
 
     @Override
     public Pair<String> betterApproach() {
-        int[] arr = {3,1,2,5,4,6,7,5};
-        int oneToNXor=0, arrElementsXor=0;
-        for (int i = 0; i < arr.length; i++) {
-            oneToNXor^=(i+1);
-            arrElementsXor^=(arr[i]);
-            arr[i]--;
-        }
+        int[] arr = {3,1,2,5,3};
+        //finding point at which loop got created in linked list
+        //with hare & tortoise approach
+
+//        int oneToNXor=0, arrElementsXor=0;
+//        for (int i = 0; i < arr.length; i++) {
+//            oneToNXor^=(i+1);
+//            arrElementsXor^=(arr[i]);
+//            arr[i]--;
+//        }
+
         ArrayUtils.printIntArr(arr);
         int slow=0, fast=0;
-        slow=arr[slow];
-        fast=arr[arr[fast]];
-        while (slow!=fast){
-            slow=arr[slow];
-            fast=arr[arr[fast]];
-        }
-        log.info("==>slow={}, fast={}", slow, fast);
+        do
+        {
+            slow = arr[slow];
+            int intermediateFast = arr[fast];
+            fast = arr[intermediateFast];
+        } while (slow != fast);
+        log.info("both pointers meet, start:{}, fast:{}", slow, fast);
         fast=0;
-        slow=arr[slow];
-        fast=arr[fast];
-        while (slow!=fast){
-            slow=arr[slow];
-            fast=arr[fast];
-        }
+        do {
+            slow = arr[slow];
+            fast = arr[fast];
+        } while (slow != fast);
         log.info("-->slow={}, fast={}", slow, fast);
         return Pair.of("O(2n)", "O(1)");
     }
@@ -114,30 +125,36 @@ public class RepeatAndMissingNumber implements DsaSolutionInterface {
             arrSum+=arr[i];
             arrSquareSum+=(arr[i]*arr[i]);
         }
-            //observations:-
+        //observations:-
         //1.(sum of 1 to n)+A-B =(arr elements sum)
         // S(1,n)+A-B=arrSum
-        // =>A-B=arrSum-S(1,n)
+        // =>A-B=arrSum-S(1,n)=x
 
         //2.(sum of squares 1 to n)+A^2-B^2 =(arr elements squares' sum)
         //=>S2(1,n)+A^2-B^2=arrSquareSum
-        //=>A^2-B^2=arrSquareSum-S2(1,n)
-        //=>(A-B)(A+B)=arrSquareSum-S2(1,n)
-        //=>(arrSum-S(1,n))*(A+B)=arrSquareSum-S2(1,n)
-        //=>(A+B)=[arrSquareSum-S2(1,n)]/(arrSum-S(1,n))
+        //=>A^2-B^2=arrSquareSum-S2(1,n)=y
+        //=>(A+B)(A-B)=y
+        //=>A+B=y/(A-B)
+        //=>A+B=y/x
+
 
         //adding both equations:
-//        2A=[arrSum-S(1,n)]+ ([arrSquareSum-S2(1,n)]/(arrSum-S(1,n)])
-//        A=[  [arrSum-S(1,n)]+ [arrSquareSum-S2(1,n)]/(arrSum-S(1,n)]  ]/2
-        //A=(1+arrSquareSum-S2(1,n))*(arrSum-S(1,n))/2
+        //A-B=x
+        //A+B=y/x
+        //=========
+        //2A=x+y/x
+        //A=(x^2+y)/2*x
 
-        //B=A-[arrSum-S(1,n)]
+        //finding B:
+        //A-B=x
+        //B=A-x
 
         int sum1ToN = NumberUtils.consecutiveNosSum(1, length);
         int sumOfSquares1ToN = NumberUtils.consecutiveNosSquaresSum(1,length);
         int intermediateResult = arrSquareSum - sum1ToN;
-        A=(1+arrSquareSum-sumOfSquares1ToN)+ intermediateResult /2;
-        B=A-intermediateResult;
+        int x=arrSum-sum1ToN, y=arrSquareSum-sumOfSquares1ToN;
+        A=(x*x+y)/2*x;
+        B=A-x;
         log.info("bestApproach, A={},B={}", A,B);
         return null;
     }
