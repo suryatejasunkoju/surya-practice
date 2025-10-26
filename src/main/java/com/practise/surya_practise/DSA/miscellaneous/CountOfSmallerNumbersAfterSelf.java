@@ -12,7 +12,7 @@ public class CountOfSmallerNumbersAfterSelf implements DsaSolutionInterface {
         int[] nums = {5,2,6,1};
         int len= nums.length;
         int[] counts = new int[len];
-        for (int i = len-1; i >=0; i--)
+        for (int i = 0; i<len; i++)
         {
             int curr=nums[i], count=0;
             for (int j = len-1; j >=i; j--)
