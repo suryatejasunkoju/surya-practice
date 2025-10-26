@@ -16,9 +16,9 @@ public class DsaClient
 {
     public static void run()
     {
-        miscellaneous();
+//        miscellaneous();
 //        day1();
-//        day2();
+        day2();
 //        day3();
 //        day4();
 //        day5();
@@ -42,7 +42,7 @@ public class DsaClient
 
     private static void day2(){
 //        new FindTheDuplicateInAnArrayOfNPlusOneIntegers().bruteForce();
-        new RepeatAndMissingNumber().bestApproach();
+        new RepeatAndMissingNumber().betterApproach();
 //        new MergeOverlappingSubintervals().bruteForce();
 //        new MergeTwoSortedArraysWithoutExtraSpace().betterApproach();
 //        new RotateMatrix().betterApproach();

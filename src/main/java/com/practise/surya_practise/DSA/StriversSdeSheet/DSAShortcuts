@@ -1,2 +1,7 @@
 In any problem related to max or min substring:
  Think 2-pointer, sliding window.
+
+arr contains elements in range from (1 to n) or (0 to n-1):
+    we have to traverse arr elements as indices
+    if duplicate & missing within this range:
+     loop in linked list-slow & fast pointers
