@@ -42,7 +42,7 @@ public class DsaClient
 
     private static void day2(){
 //        new FindTheDuplicateInAnArrayOfNPlusOneIntegers().bruteForce();
-        new RepeatAndMissingNumber().betterApproach();
+        new RepeatAndMissingNumber().bestApproach1();
 //        new MergeOverlappingSubintervals().bruteForce();
 //        new MergeTwoSortedArraysWithoutExtraSpace().betterApproach();
 //        new RotateMatrix().betterApproach();
