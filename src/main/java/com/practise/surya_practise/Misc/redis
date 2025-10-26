@@ -1,0 +1,264 @@
+
+// Steps to run redis using docker:
+open Docker app
+docker pull redis //one time step
+
+docker run --name my-redis -d -p 6379:6379 redis //running redis img in container named 'my-redis'
+docker run --name my-redis -d -p 6379:6379 -v /path/on/windows:/data redis redis-server --save 60 1 --dir /data //to save data permanantly
+// Replace /path/on/windows with a path on your Windows file system, like C:/redis-data.
+// Ex: docker run --name my-redis -d -p 6379:6379 -v C:/surya/personal/redis_data:/data redis redis-server --save 60 1 --dir /data
+// Either of above 2 cmds needs to be run
+
+docker exec -it my-redis redis-cli //running redis cli within that container
+
+
+
+// Steps to run redis-stack using docker:
+open Docker app
+docker pull redis/redis-stack //one time step
+
+docker run -d --name my-redis-stack -p 6379:6379 -p 9001:9001 redis/redis-stack:latest
+docker run --name my-redis-stack -d -p 6379:6379 -v C:/surya/personal/redis_data:/data redis redis-server --save 10 1 --dir /data
+//to save data permanantly every 10 sec per change
+
+docker exec -it my-redis-stack redis-cli
+
+
+// cmds to test whether redis-cli is working or not:
+ping
+redis-cli
+redis-insight
+
+
+
+docker run -d --name redisinsight -p 9001:9001 redis/redisinsight:latest
+
+
+docker run -d --name redis-stack -p 6379:6379  -p 9001:9001  -v C:/surya/personal/redis_data:/data  redis/redis-stack:latest  redis-server --save 30 1 --dir /data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Host=localhost
+Port=6739;
+Jedis jedis = new Jedis(Host, Port);
+String result=jedis.set("key", "value");
+//is successful, result="OK";
+String value = jedis.get("key");
+
+Redis Clients=Jedis/lettuce/redisson for Java
+Redis Clients does 3 things:
+1.manage connections with redis instances
+        uses TCP sockets to connect to Redis instances either in local or on remote server
+2.implement REdis Serilization Protocol(RESP)
+3.provide language specific API methods
+conversions to & fro from redis data types to language specific(Java) data types
+Ex: redis hash converted to language specific:
+Map in java
+Object in javascript
+dict in python
+
+Jedis class:
+uses 1 TCP connection to connect to Redis instance.
+Not thread-safe, and cant be used for multi-threaded application
+JedisPool class:
+creates Jedis objects which are thread-safe.
+can pass JedisPoolConfig object in JedisPool constructor to initaliaze JedisPool object with custom configuration.
+
+JedisPoolConfig_obj.setMaxTotal(20)-sets the maximum number of connections that the JedisPool can keep in the pool at any time. 8 by default.
+JedisPoolConfig_obj.setMaxIdle(2)-sets the maximum number of idle connections that the JedisPool can keep in the pool at any time
+
+
+Redis Sentinel:
+Redis Sentinel is a system for managing and monitoring Redis masters and slaves.
+In a basic Redis master-slave setup, if the master fails, your system becomes read-only (if clients were connecting to slaves for reads).
+You would need manual intervention to:
+Detect the master failure.
+Manually promote a slave to become the new master.
+Update client configurations to point to the new master.
+Potentially reconfigure other slaves to replicate from the new master.
+This manual process is time-consuming, error-prone, and leads to downtime.  Redis Sentinel automates all these steps, significantly improving the reliability and availability of your Redis deployment.
+
+Key Components in a Redis Sentinel Deployment:
+Redis Master Instance: This is the primary Redis server that handles both read and write operations. There is usually only one active master at any given time.
+Redis Slave Instances (Optional but Recommended): These are replica instances that asynchronously replicate data from the master. Slaves handle read operations and provide data redundancy. You can have one or more slaves.
+Redis Sentinel Instances: These are separate processes (typically run on different servers than the Redis instances) that monitor the master and slaves. You should have multiple (at least 3) Sentinel instances for redundancy. This is crucial because if a single Sentinel fails, the system can still function correctly.
+
+Sentinel's Core Functions:
+Monitoring: Sentinels continuously ping the master and slaves, checking their health. They use configurable thresholds to determine if an instance is "down" (e.g., not responding to pings within a timeout).
+Notification: When a Sentinel detects a problem (like a master being down), it can send notifications (e.g., log messages, system alerts) to administrators or other applications.
+Configuration Provider: Clients don't connect directly to the Redis master IP address in a Sentinel setup. Instead, they connect to Sentinels. Sentinels provide the client with the current address of the active master. If a failover happens, the Sentinels will automatically update clients with the new master's address.
+
+Your deployment would look something like this conceptually:
+
++----------+     +----------+     +----------+
+| Sentinel |     | Sentinel |     | Sentinel |  <-- Monitor Redis Instances
+|(Server A)|-----|(Server B)|-----| (Server C)|
++----------+     +----------+     +----------+
+\           /           /
+\         /           /      Client Application Connects to Sentinels
+\       /           /       to discover the Master
+\     /           /
+\   /           /
+\ /           /
+V           V
++----------+     +----------+
+|  Master  |-----|  Slave   |  <-- Redis Data Instances
+|(Server D)|-----|(Server E)|
++----------+     +----------+
+Key Considerations for Sentinel Deployment:
+
+Number of Sentinels: Always deploy an odd number of Sentinels (typically 3 or 5) to avoid split-brain scenarios and ensure a quorum for decision-making. An odd number helps break ties during leader election.
+Separate Servers: Ideally, Sentinels should run on separate servers from your Redis master and slaves and from each other to increase fault tolerance. If a server fails, it's less likely to take down multiple critical components.
+Configuration: Properly configure your Sentinel instances with:
+master-name: A unique name for your master group.
+down-after-milliseconds: How long a master must be unreachable to be considered down.
+failover-timeout: How long a failover process can take.
+parallel-syncs: How many slaves can be reconfigured to sync with the new master simultaneously after a failover (to avoid overwhelming the new master).
+quorum: The number of Sentinels that must agree the master is down to initiate a failover. This should be a majority of your Sentinel instances (e.g., for 3 Sentinels, quorum should be 2).
+
+
+Redis Cluster is about achieving both high availability and scalability by distributing your data across multiple Redis nodes.
+What is Redis Cluster?
+Redis Cluster is a distributed implementation of Redis that provides:
+
+Data Sharding (Partitioning): Redis Cluster automatically splits your dataset across multiple Redis nodes. This allows you to scale your data size beyond what a single Redis instance can handle.
+High Availability: Even with data distributed, Redis Cluster ensures high availability. If a master node fails, one of its slaves is automatically promoted to become the new master, and the cluster continues to operate.
+Automatic Failover: Similar to Sentinel, if a master node becomes unavailable, the cluster will automatically failover to a slave, ensuring minimal downtime.
+No Single Point of Failure: The distributed nature and built-in failover mechanisms eliminate single points of failure, making your Redis deployment more robust.
+Why Use Redis Cluster?
+
+You would typically choose Redis Cluster when you need to:
+
+Scale your data: Your dataset is larger than the memory capacity of a single Redis server.
+Handle higher write and read loads: Distributing data across multiple nodes allows you to handle more concurrent operations.
+Achieve high availability at scale: You need a highly available Redis solution that can also scale horizontally.
+Key Components of a Redis Cluster:
+
+A Redis Cluster consists of several interconnected Redis nodes.  Here's a breakdown of the main components:
+
+Redis Nodes (Master and Slaves):
+
+Master Nodes: Each master node is responsible for a subset of the data. In Redis Cluster, data is divided into hash slots, and each master node is responsible for serving a range of these hash slots.
+Slave Nodes: For each master node, you can have one or more slave nodes. These slaves are replicas of their respective masters and provide redundancy. If a master fails, a slave will be promoted.
+Cluster Bus (Gossip Protocol):
+
+Redis Cluster nodes communicate with each other using a special channel called the cluster bus. This bus uses the gossip protocol.
+Gossip Protocol: Nodes periodically exchange information about the cluster state, including:
+Node reachability (is a node alive or down?)
+Hash slot mapping (which node serves which slots)
+Cluster configuration updates
+This decentralized gossip protocol allows the cluster to automatically discover nodes, detect failures, and propagate changes without relying on a central coordinator.
+Clients (Cluster-Aware):
+
+Clients interacting with a Redis Cluster need to be cluster-aware. This means they need to understand the cluster topology and how to route requests to the correct nodes.
+Smart Client Libraries: You must use a Redis client library that is designed to work with Redis Cluster. These libraries handle:
+Initial connection to any node in the cluster.
+Discovery of the full cluster topology from a seed node.
+Automatic request routing to the correct node based on the key's hash slot.
+Handling redirections (MOVED and ASK responses from the cluster - explained later).
+Failover handling (re-discovering the new master after a failover).
+Data Sharding with Hash Slots:
+
+Redis Cluster uses a concept called hash slots to distribute data.
+
+16384 Hash Slots: Redis Cluster divides the key space into 16384 hash slots (numbered 0 to 16383).
+Hash Function: When you store a key in Redis Cluster, it calculates the hash slot for that key using the CRC16 algorithm modulo 16384.
+Slot Assignment to Masters: Each master node in the cluster is responsible for serving a range of these hash slots. For example:
+Master A might handle slots 0 to 5460.
+Master B might handle slots 5461 to 10922.
+Master C might handle slots 10923 to 16383.
+Key-to-Node Mapping: When a client sends a command for a specific key, the client library calculates the hash slot for that key. Based on the slot number, the client library knows which master node is responsible for that slot and routes the request directly to that master.
+Example of Hash Slot Distribution (Simplified):
+
+Let's say we have 3 master nodes: M1, M2, M3.
+
+Slots 0-5460: Assigned to Master M1
+Slots 5461-10922: Assigned to Master M2
+Slots 10923-16383: Assigned to Master M3
+If you want to SET key:apple value1, the client library calculates the hash slot for key:apple. Let's say it falls into slot number 3000.  The client knows slot 3000 belongs to Master M1, so it sends the SET command directly to M1.
+
+High Availability in Redis Cluster:
+
+Master-Slave Replication: Each master node in the cluster has slave nodes replicating its data. If a master fails, its slaves have the data.
+Automatic Failover:
+Failure Detection: Redis Cluster nodes use the gossip protocol to detect when a master node is no longer reachable. If a majority of master nodes agree that a master is down, it's considered failed.
+Slave Promotion: One of the slaves of the failed master is chosen to be promoted to become the new master. The selection process typically prioritizes slaves with the most up-to-date data.
+Cluster Reconfiguration: The cluster topology is updated to reflect the new master. Other master nodes are informed about the failover through the gossip protocol.
+Client Update: Client libraries are notified of the topology change and will automatically start routing requests for the hash slots previously served by the failed master to the newly promoted master.
+Client Redirection: MOVED and ASK
+
+When a client sends a request to a node that is not responsible for the hash slot of the key, the node will respond with a redirection error:
+
+MOVED <slot> <new_ip>:<new_port>: This redirection means the hash slot (and thus the key) has permanently moved to a different node at <new_ip>:<new_port>. This usually happens during cluster rebalancing or when adding/removing nodes. Client libraries are expected to update their routing tables permanently after receiving a MOVED redirection.
+ASK <slot> <new_ip>:<new_port>: This is a temporary redirection during slot migration. When slots are being moved from one node to another, there's a period where some keys for a slot might still be on the old node, while others are already on the new node. ASK tells the client to send the next command for this specific key to <new_ip>:<new_port>, but the client should not update its routing table permanently yet. The client should typically send a ASKING command to the target node before retrying the original command after an ASK redirection.
+Deployment Considerations for Redis Cluster:
+
+Number of Master Nodes: A minimum of 3 master nodes is strongly recommended for fault tolerance. With 3 masters, the cluster can survive the failure of one master and still continue to operate.
+Number of Slave Nodes: For each master, you should have at least one slave (or ideally more for better read scalability and redundancy).
+Node Placement: Distribute master and slave nodes across different physical servers, racks, or availability zones to minimize the impact of hardware failures or network partitions.
+Seed Nodes: When clients or new nodes join the cluster, they need to connect to one or more "seed nodes" to discover the rest of the cluster topology. These seed nodes are just regular cluster nodes whose addresses are initially known.
+Configuration:
+cluster-enabled yes: Enable cluster mode in the redis.conf file of each node.
+cluster-config-file <filename.conf>: Specify a filename for the cluster configuration file (automatically managed by Redis).
+cluster-node-timeout <milliseconds>: Set the timeout for node communication.
+cluster-announce-ip <ip-address> , cluster-announce-port <port>, cluster-announce-bus-port <bus-port>: (Important in some network setups) Configure how the node announces its IP and ports to other nodes.
+Client Library Compatibility: Ensure you use a Redis client library that supports Redis Cluster.
+Cluster Creation Tools: Redis provides tools like redis-cli --cluster create to help you easily bootstrap a new Redis Cluster.
+Monitoring and Management: You'll need tools to monitor the health of your cluster, track hash slot distribution, and manage operations like adding/removing nodes. Redis provides commands like CLUSTER INFO, CLUSTER NODES, etc., for monitoring. There are also GUI tools and monitoring systems that can integrate with Redis Cluster.
+Redis Sentinel vs. Redis Cluster: Key Differences
+
+Feature	Redis Sentinel	Redis Cluster
+Scalability	Primarily focused on HA for a single master.	Designed for horizontal scalability (data sharding).
+Data Partitioning	No data partitioning. All data on a single master (replicated to slaves).	Data is automatically sharded across master nodes.
+High Availability	Provides automatic failover for master failures.	Provides automatic failover at the shard level.
+Complexity	Simpler to set up and manage.	More complex to set up and manage. Requires cluster-aware clients.
+Use Cases	HA for single Redis instance, read scaling via slaves.	Scalability for large datasets, high write/read loads, HA at scale.
+
+Export to Sheets
+When to Choose Redis Cluster:
+
+Large datasets: Your data exceeds the memory capacity of a single Redis server.
+High throughput: You need to handle a very high volume of read and write operations.
+Scalability is a primary concern: You anticipate future data growth and need to scale out your Redis infrastructure.
+When Redis Sentinel Might be Sufficient:
+
+Smaller datasets: Your data fits comfortably within the memory of a single Redis server.
+Moderate throughput: Your current read/write load is manageable by a master-slave setup.
+Simpler HA needs: You primarily need high availability for master failures and read scaling with slaves, without the need for data sharding.
+Simpler setup is preferred: You want a less complex deployment compared to Cluster.
+
+
+Redis Deployment connection classes(in java):
+Thread-safe     Deployment-type connection      Connection Class
+No              Single Redis                    Jedis
+No              RedisEnterprise                 Jedis
+Yes             Single Redis                    JedisPool
+Yes             RedisEnterprise                 JedisPool
+Yes             RedisSentinel                   JedisSentinelPool
+Yes             RedisCluster                    JedisCluster
+
+
+JavaTypes to Redis Types:
+string          String
+list            List<String>
+set             Set<String>
+hash            Map<String, String>
+float           Double
+integer         Long
+//Redis integer is 64 bit not fits in Java Integer class.
+
+// Stopped at "Basic operations with Jedis"
