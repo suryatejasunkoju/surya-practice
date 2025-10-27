@@ -18,8 +18,8 @@ public class DsaClient
     {
 //        miscellaneous();
 //        day1();
-        day2();
-//        day3();
+//        day2();
+        day3();
 //        day4();
 //        day5();
     }
@@ -48,7 +48,7 @@ public class DsaClient
 //        new RotateMatrix().betterApproach();
     }
     private static void day3(){
-        new SearchInA2DMatrix().betterApproach();
+        new SearchInA2DMatrix().bestApproach();
 //        new ReversePairs().bruteForce();
 //        new GridUniquePaths().goodApproach();
     }
